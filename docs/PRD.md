@@ -138,14 +138,18 @@ export interface Task extends BaseEntity {
 
 ```ts
 // shared/lib/event-bus.ts
+// payloads carry only ids/primitives — never full entities — so this
+// module has no dependency on entities/* and stays in `shared`.
 export type LifeOSEvent =
   | { type: 'goal.created'; payload: { id: EntityId } }
-  | { type: 'goal.updated'; payload: { id: EntityId; changes: Partial<Goal> } }
+  | { type: 'goal.updated'; payload: { id: EntityId } }
   | { type: 'task.created'; payload: { id: EntityId } }
   | { type: 'task.completed'; payload: { id: EntityId; completedAt: number } }
   | { type: 'habit.checked'; payload: { id: EntityId; date: string } }
   | { type: 'finance.created'; payload: { id: EntityId; amount: number } }
-  | { type: 'diary.saved'; payload: { id: EntityId } };
+  | { type: 'diary.saved'; payload: { id: EntityId } }
+  | { type: 'note.created'; payload: { id: EntityId } }
+  | { type: 'project.created'; payload: { id: EntityId } };
 
 type Handler<T extends LifeOSEvent['type']> =
   (event: Extract<LifeOSEvent, { type: T }>) => void;
@@ -161,6 +165,37 @@ export interface EventBus {
   повторном рендере React (StrictMode) без побочных эффектов.
 - События не переживают перезагрузку страницы — при старте состояние
   восстанавливается прямым чтением из Dexie, а не replay событий.
+
+## USER SCENARIOS **[новый раздел, шаг 4 инструкции]**
+
+**US-1. Создание цели и декомпозиция на задачи**
+Пользователь на Home нажимает "Новая цель" → вводит title/targetDate →
+`goal.created` → открывает карточку цели → добавляет несколько Task с
+relation `supports → goal`. Прогресс цели (`Goal.progress`) пересчитывается
+из доли `done` задач среди связанных при каждом `task.completed`.
+
+**US-2. Выполнение задачи дня**
+На Home в блоке "Задачи на сегодня" (task.dueDate === today) пользователь
+отмечает чекбокс → `task.completed` эмитится → Home-виджет цели и
+"прогресс недели" реагируют на событие и обновляют React Query кэш без
+перезагрузки страницы.
+
+**US-3. Глобальный поиск**
+Пользователь вводит запрос в Search → FlexSearch-индекс (worker) отдаёт
+id совпавших сущностей всех типов → UI резолвит их из Dexie и рендерит
+сгруппированно по `EntityKind` с переходом в соответствующую карточку.
+
+**US-4. Резервное копирование**
+В Settings пользователь нажимает "Экспорт" → приложение собирает все
+сущности + `backupVersion: CURRENT_BACKUP_VERSION` в один JSON → скачивание
+файла. При "Импорт" — выбор файла → Zod-валидация → прогон через
+`migrations` до текущей версии → подтверждение перезаписи → запись в Dexie.
+
+**US-5. Заметка, связанная с целью**
+Пользователь создаёт Note из карточки Goal (контекстное действие) → Note
+создаётся сразу с `relations: [{ targetId: goal.id, targetType: 'goal',
+type: 'relates-to' }]` → на карточке Goal появляется блок "Связанные
+заметки" через обратный индекс Life Graph.
 
 ## HOME
 Показывает: главную цель, задачи на сегодня, привычки, финансы, AI Insight,
