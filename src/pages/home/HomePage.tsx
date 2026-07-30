@@ -3,13 +3,26 @@ import { WeekProgress } from '../../widgets/week-progress/WeekProgress';
 import { useTaskEventsSync } from '../../entities/task/api/taskApi';
 import { useGoalEventsSync } from '../../entities/goal/api/goalApi';
 
+function greeting(): string {
+  const hour = new Date().getHours();
+  if (hour < 5) return 'Доброй ночи';
+  if (hour < 12) return 'Доброе утро';
+  if (hour < 18) return 'Добрый день';
+  return 'Добрый вечер';
+}
+
+const DATE_FORMAT = new Intl.DateTimeFormat('ru-RU', { day: 'numeric', month: 'long', weekday: 'long' });
+
 export function HomePage() {
   useTaskEventsSync();
   useGoalEventsSync();
 
   return (
-    <div className="flex flex-col gap-4 max-w-3xl">
-      <h1 className="text-2xl font-semibold">Главная</h1>
+    <div className="flex flex-col gap-5 max-w-3xl">
+      <div>
+        <h1 className="text-2xl font-semibold tracking-tight">{greeting()}</h1>
+        <p className="text-sm text-white/40 mt-0.5 capitalize">{DATE_FORMAT.format(new Date())}</p>
+      </div>
       <HomeSummary />
       <WeekProgress />
     </div>

@@ -2,6 +2,7 @@ import { useGoals } from '../../entities/goal/api/goalApi';
 import { useTodayTasks } from '../../entities/task/api/taskApi';
 import { TaskCheckbox } from '../../features/complete-task/TaskCheckbox';
 import { GlassCard } from '../../shared/ui/GlassCard';
+import { CircularProgress } from '../../shared/ui/CircularProgress';
 
 export function HomeSummary() {
   const { data: goals } = useGoals();
@@ -10,25 +11,27 @@ export function HomeSummary() {
 
   return (
     <div className="grid gap-4 md:grid-cols-2">
-      <GlassCard>
-        <h2 className="text-sm text-white/50 mb-2">Главная цель</h2>
+      <GlassCard className="flex items-center gap-4">
         {mainGoal ? (
-          <div>
-            <p className="text-lg font-medium">{mainGoal.title}</p>
-            <div className="mt-2 h-2 rounded-full bg-white/10 overflow-hidden">
-              <div className="h-full bg-accent" style={{ width: `${mainGoal.progress}%` }} />
+          <>
+            <CircularProgress value={mainGoal.progress} />
+            <div className="min-w-0">
+              <h2 className="text-xs text-white/45 mb-1">Главная цель</h2>
+              <p className="text-lg font-medium truncate">{mainGoal.title}</p>
             </div>
-            <p className="mt-1 text-xs text-white/40">{mainGoal.progress}%</p>
-          </div>
+          </>
         ) : (
-          <p className="text-white/40 text-sm">Пока нет целей</p>
+          <div>
+            <h2 className="text-xs text-white/45 mb-1">Главная цель</h2>
+            <p className="text-white/40 text-sm">Пока нет целей</p>
+          </div>
         )}
       </GlassCard>
 
-      <GlassCard>
-        <h2 className="text-sm text-white/50 mb-2">Задачи на сегодня</h2>
+      <GlassCard delay={0.05}>
+        <h2 className="text-xs text-white/45 mb-3">Задачи на сегодня</h2>
         {todayTasks && todayTasks.length > 0 ? (
-          <ul className="space-y-2">
+          <ul className="space-y-3">
             {todayTasks.map((task) => (
               <li key={task.id}>
                 <TaskCheckbox task={task} />

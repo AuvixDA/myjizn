@@ -1,6 +1,7 @@
 import { useState, type FormEvent } from 'react';
 import { createNote } from '../../entities/note/api/noteApi';
 import { Button } from '../../shared/ui/Button';
+import { Input, Textarea } from '../../shared/ui/Input';
 
 interface CreateNoteFormProps {
   onCreated?: () => void;
@@ -27,19 +28,8 @@ export function CreateNoteForm({ onCreated }: CreateNoteFormProps) {
 
   return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-2">
-      <input
-        value={title}
-        onChange={(e) => setTitle(e.target.value)}
-        placeholder="Заголовок…"
-        className="rounded-xl bg-white/5 border border-white/10 px-3 py-2 text-sm outline-none focus:border-accent"
-      />
-      <textarea
-        value={content}
-        onChange={(e) => setContent(e.target.value)}
-        placeholder="Текст заметки…"
-        rows={3}
-        className="rounded-xl bg-white/5 border border-white/10 px-3 py-2 text-sm outline-none focus:border-accent resize-none"
-      />
+      <Input value={title} onChange={(e) => setTitle(e.target.value)} placeholder="Заголовок…" />
+      <Textarea value={content} onChange={(e) => setContent(e.target.value)} placeholder="Текст заметки…" rows={3} />
       <Button type="submit" disabled={submitting || !title.trim()} className="self-start">
         Сохранить
       </Button>

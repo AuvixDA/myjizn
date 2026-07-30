@@ -1,5 +1,7 @@
-import { NavLink, Outlet } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
+import { motion } from 'framer-motion';
 import { HomeIcon, GoalIcon, TaskIcon, NoteIcon, SearchIcon, BackupIcon } from '../shared/ui/icons';
+import { AnimatedOutlet } from './AnimatedOutlet';
 
 const NAV_ITEMS = [
   { to: '/', label: 'Главная', end: true, Icon: HomeIcon },
@@ -10,52 +12,69 @@ const NAV_ITEMS = [
   { to: '/backup', label: 'Бэкап', end: false, Icon: BackupIcon },
 ] as const;
 
+const SPRING = { type: 'spring', stiffness: 500, damping: 38 } as const;
+
 export function AppLayout() {
   return (
     <div className="min-h-screen flex flex-col md:flex-row">
       {/* Desktop / tablet sidebar */}
-      <nav className="hidden md:flex md:w-56 shrink-0 border-r border-white/10 p-4 flex-col gap-1">
-        <span className="text-lg font-semibold px-2 pb-4">LifeOS</span>
+      <nav className="hidden md:flex md:w-56 shrink-0 border-r border-white/[0.06] p-4 flex-col gap-1">
+        <span className="text-lg font-semibold px-2 pb-4 tracking-tight">LifeOS</span>
         {NAV_ITEMS.map(({ to, label, end, Icon }) => (
           <NavLink
             key={to}
             to={to}
             end={end}
-            className={({ isActive }) =>
-              `flex items-center gap-2.5 rounded-lg px-3 py-2 text-sm transition-colors ${
-                isActive ? 'bg-white/10 text-white' : 'text-white/60 hover:text-white hover:bg-white/5'
-              }`
-            }
+            className="relative rounded-lg px-3 py-2 text-sm transition-colors text-white/55 hover:text-white/90 [&.active]:text-white"
           >
-            <Icon className="size-4 shrink-0" />
-            {label}
+            {({ isActive }) => (
+              <>
+                {isActive && (
+                  <motion.span
+                    layoutId="sidebar-active-pill"
+                    transition={SPRING}
+                    className="absolute inset-0 rounded-lg bg-white/[0.08] border border-white/[0.06]"
+                  />
+                )}
+                <span className="relative flex items-center gap-2.5">
+                  <Icon className="size-4 shrink-0" />
+                  {label}
+                </span>
+              </>
+            )}
           </NavLink>
         ))}
       </nav>
 
-      <main className="flex-1 p-4 pb-24 md:p-8 md:pb-8">
-        <Outlet />
+      <main className="flex-1 p-4 pb-24 md:p-8 md:pb-8 overflow-x-hidden">
+        <AnimatedOutlet />
       </main>
 
       {/* Mobile bottom tab bar */}
       <nav
-        className="md:hidden fixed inset-x-0 bottom-0 z-10 border-t border-white/10 bg-surface-raised/80 backdrop-blur-glass"
+        className="md:hidden fixed inset-x-0 bottom-0 z-10 border-t border-white/[0.06] bg-surface-raised/70 backdrop-blur-glass"
         style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}
       >
         <div className="grid grid-cols-6">
           {NAV_ITEMS.map(({ to, label, end, Icon }) => (
-            <NavLink
-              key={to}
-              to={to}
-              end={end}
-              className={({ isActive }) =>
-                `flex flex-col items-center gap-0.5 py-2 text-[10px] leading-none transition-colors ${
-                  isActive ? 'text-white' : 'text-white/50'
-                }`
-              }
-            >
-              <Icon className="size-5" />
-              <span className="truncate max-w-full px-0.5">{label}</span>
+            <NavLink key={to} to={to} end={end} className="relative flex flex-col items-center gap-1 py-2.5">
+              {({ isActive }) => (
+                <>
+                  <span className="relative flex items-center justify-center">
+                    {isActive && (
+                      <motion.span
+                        layoutId="mobile-active-pill"
+                        transition={SPRING}
+                        className="absolute -inset-2 rounded-full bg-accent/20"
+                      />
+                    )}
+                    <Icon className={`relative size-5 transition-colors ${isActive ? 'text-white' : 'text-white/45'}`} />
+                  </span>
+                  <span className={`text-[10px] leading-none truncate max-w-full px-0.5 transition-colors ${isActive ? 'text-white' : 'text-white/45'}`}>
+                    {label}
+                  </span>
+                </>
+              )}
             </NavLink>
           ))}
         </div>
