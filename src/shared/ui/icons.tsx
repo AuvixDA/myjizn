@@ -119,3 +119,48 @@ export function SettingsIcon(props: IconProps) {
     </Icon>
   );
 }
+
+export function FlameIcon(props: IconProps) {
+  return (
+    <Icon {...props}>
+      <path d="M12 2.5c1.5 3 .5 4.5-.5 5.8C10.3 9.7 9 11 9 13.5a3 3 0 0 0 6 0c0-1-.4-1.8-.9-2.5.9.6 2.4 2 2.4 4.3a4.5 4.5 0 0 1-9 0c0-3.8 2.2-5.4 3.6-7.2 1-1.3 1.4-2.6.9-5.6Z" />
+    </Icon>
+  );
+}
+
+export function DiaryIcon(props: IconProps) {
+  return (
+    <Icon {...props}>
+      <path d="M5 4.5A1.5 1.5 0 0 1 6.5 3H17a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6.5A1.5 1.5 0 0 1 5 19.5v-15Z" />
+      <path d="M5 17.5h12M8 7.5h6M8 10.5h6" />
+    </Icon>
+  );
+}
+
+export function FinanceIcon(props: IconProps) {
+  return (
+    <Icon {...props}>
+      <rect x="3" y="6" width="18" height="13" rx="2.5" />
+      <path d="M3 10.5h18" />
+      <circle cx="16.5" cy="14.5" r="1.1" fill="currentColor" stroke="none" />
+    </Icon>
+  );
+}
+
+export function MoreIcon(props: IconProps) {
+  return (
+    <Icon {...props}>
+      <circle cx="5" cy="12" r="1.4" fill="currentColor" />
+      <circle cx="12" cy="12" r="1.4" fill="currentColor" />
+      <circle cx="19" cy="12" r="1.4" fill="currentColor" />
+    </Icon>
+  );
+}
+
+export function ChevronRightIcon(props: IconProps) {
+  return (
+    <Icon {...props}>
+      <path d="m9 5.5 6.5 6.5L9 18.5" />
+    </Icon>
+  );
+}

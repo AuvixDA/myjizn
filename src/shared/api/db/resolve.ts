@@ -1,5 +1,6 @@
 import { db } from './schema';
 import { ENTITY_TABLE } from './tables';
+import { formatMoney } from '../../../entities/finance/model/format';
 import type { EntityId, EntityKind } from '../../types/entity';
 
 // Search only indexes ids/kinds (see shared/lib/search) — the display
@@ -14,8 +15,8 @@ export async function resolveEntityTitle(kind: EntityKind, id: EntityId): Promis
     case 'diary':
       return (record as { content: string }).content;
     case 'finance': {
-      const finance = record as { category: string; amount: number };
-      return `${finance.category} · ${finance.amount}`;
+      const finance = record as { category: string; amount: number; currency: string };
+      return `${finance.category} · ${formatMoney(finance.amount, finance.currency)}`;
     }
     default:
       return (record as { title: string }).title;

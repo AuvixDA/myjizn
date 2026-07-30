@@ -24,12 +24,14 @@ function post(request: SearchWorkerRequest): void {
 // Builds the in-memory index once at startup from all Dexie tables. Called
 // alongside buildReverseIndex() in app/main.tsx.
 export async function initSearchIndex(): Promise<void> {
-  const [goals, tasks, notes, habits, projects] = await Promise.all([
+  const [goals, tasks, notes, habits, projects, diary, finance] = await Promise.all([
     db.goals.toArray(),
     db.tasks.toArray(),
     db.notes.toArray(),
     db.habits.toArray(),
     db.projects.toArray(),
+    db.diary.toArray(),
+    db.finance.toArray(),
   ]);
 
   const records: SearchableRecord[] = [
@@ -38,6 +40,8 @@ export async function initSearchIndex(): Promise<void> {
     ...notes.map((n) => ({ id: n.id, kind: 'note' as const, title: `${n.title} ${n.content}` })),
     ...habits.map((h) => ({ id: h.id, kind: 'habit' as const, title: h.title })),
     ...projects.map((p) => ({ id: p.id, kind: 'project' as const, title: p.title })),
+    ...diary.map((d) => ({ id: d.id, kind: 'diary' as const, title: d.content })),
+    ...finance.map((f) => ({ id: f.id, kind: 'finance' as const, title: `${f.category} ${f.note ?? ''}` })),
   ];
 
   post({ type: 'index', records });

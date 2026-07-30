@@ -151,9 +151,15 @@ export type LifeOSEvent =
   // gone by the time this fires — unlike every other handler, consumers
   // can't re-read it from Dexie.
   | { type: 'task.deleted'; payload: { id: EntityId; linkedGoalIds: EntityId[] } }
+  | { type: 'habit.created'; payload: { id: EntityId } }
+  | { type: 'habit.updated'; payload: { id: EntityId } }
   | { type: 'habit.checked'; payload: { id: EntityId; date: string } }
+  | { type: 'habit.deleted'; payload: { id: EntityId } }
   | { type: 'finance.created'; payload: { id: EntityId; amount: number } }
+  | { type: 'finance.updated'; payload: { id: EntityId } }
+  | { type: 'finance.deleted'; payload: { id: EntityId } }
   | { type: 'diary.saved'; payload: { id: EntityId } }
+  | { type: 'diary.deleted'; payload: { id: EntityId } }
   | { type: 'note.created'; payload: { id: EntityId } }
   | { type: 'note.updated'; payload: { id: EntityId } }
   | { type: 'note.deleted'; payload: { id: EntityId } }
@@ -265,8 +271,8 @@ SOLID. DRY. KISS. Строгий TypeScript. Функциональные ком
 модули. Комментарии только там, где необходимы.
 
 ## ROADMAP
-MVP: Home, Goals, Tasks, Notes, Search, Backup.
-После MVP: Habits, Diary, Finance.
+MVP: Home, Goals, Tasks, Notes, Search, Backup. ✅ реализовано.
+После MVP: Habits, Diary, Finance. ✅ реализовано.
 Затем: Projects, AI Insights, Statistics.
 
 ## INSTRUCTION

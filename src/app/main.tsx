@@ -8,6 +8,9 @@ import { initSearchIndex } from '../shared/lib/search/searchClient';
 import { initGoalEventsSync } from '../entities/goal/api/goalApi';
 import { initTaskEventsSync } from '../entities/task/api/taskApi';
 import { initNoteEventsSync } from '../entities/note/api/noteApi';
+import { initHabitEventsSync } from '../entities/habit/api/habitApi';
+import { initDiaryEventsSync } from '../entities/diary/api/diaryApi';
+import { initFinanceEventsSync } from '../entities/finance/api/financeApi';
 import '../shared/ui/tailwind.css';
 
 // Reverse relations index and search index must exist before any widget
@@ -20,6 +23,9 @@ Promise.all([buildReverseIndex(), initSearchIndex()]).then(() => {
   initGoalEventsSync();
   initTaskEventsSync();
   initNoteEventsSync();
+  initHabitEventsSync();
+  initDiaryEventsSync();
+  initFinanceEventsSync();
 
   createRoot(document.getElementById('root')!).render(
     <StrictMode>

@@ -1,15 +1,41 @@
 import { NavLink } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { HomeIcon, GoalIcon, TaskIcon, NoteIcon, SearchIcon, BackupIcon, SettingsIcon } from '../shared/ui/icons';
+import {
+  HomeIcon,
+  GoalIcon,
+  TaskIcon,
+  FlameIcon,
+  NoteIcon,
+  DiaryIcon,
+  FinanceIcon,
+  SearchIcon,
+  BackupIcon,
+  SettingsIcon,
+  MoreIcon,
+} from '../shared/ui/icons';
 import { AnimatedOutlet } from './AnimatedOutlet';
 
-const NAV_ITEMS = [
+// Desktop sidebar fits every section as a plain vertical list.
+const DESKTOP_NAV_ITEMS = [
   { to: '/', label: 'Главная', end: true, Icon: HomeIcon },
   { to: '/goals', label: 'Цели', end: false, Icon: GoalIcon },
   { to: '/tasks', label: 'Задачи', end: false, Icon: TaskIcon },
+  { to: '/habits', label: 'Привычки', end: false, Icon: FlameIcon },
   { to: '/notes', label: 'Заметки', end: false, Icon: NoteIcon },
+  { to: '/diary', label: 'Дневник', end: false, Icon: DiaryIcon },
+  { to: '/finance', label: 'Финансы', end: false, Icon: FinanceIcon },
   { to: '/search', label: 'Поиск', end: false, Icon: SearchIcon },
   { to: '/backup', label: 'Бэкап', end: false, Icon: BackupIcon },
+] as const;
+
+// Mobile bottom bar only fits ~5 items before it gets cramped, so it keeps
+// the daily-use core and pushes everything else behind "Ещё" (see MorePage).
+const MOBILE_NAV_ITEMS = [
+  { to: '/', label: 'Главная', end: true, Icon: HomeIcon },
+  { to: '/tasks', label: 'Задачи', end: false, Icon: TaskIcon },
+  { to: '/habits', label: 'Привычки', end: false, Icon: FlameIcon },
+  { to: '/notes', label: 'Заметки', end: false, Icon: NoteIcon },
+  { to: '/more', label: 'Ещё', end: false, Icon: MoreIcon },
 ] as const;
 
 const SPRING = { type: 'spring', stiffness: 500, damping: 38 } as const;
@@ -18,9 +44,9 @@ export function AppLayout() {
   return (
     <div className="min-h-screen flex flex-col md:flex-row">
       {/* Desktop / tablet sidebar */}
-      <nav className="hidden md:flex md:w-56 shrink-0 border-r border-white/[0.06] p-4 flex-col gap-1">
+      <nav className="hidden md:flex md:w-56 shrink-0 border-r border-white/[0.06] p-4 flex-col gap-1 overflow-y-auto">
         <span className="text-lg font-semibold px-2 pb-4 tracking-tight">LifeOS</span>
-        {NAV_ITEMS.map(({ to, label, end, Icon }) => (
+        {DESKTOP_NAV_ITEMS.map(({ to, label, end, Icon }) => (
           <NavLink
             key={to}
             to={to}
@@ -83,8 +109,8 @@ export function AppLayout() {
         className="md:hidden fixed inset-x-0 bottom-0 z-10 border-t border-white/[0.06] bg-surface-raised/70 backdrop-blur-glass"
         style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}
       >
-        <div className="grid grid-cols-6">
-          {NAV_ITEMS.map(({ to, label, end, Icon }) => (
+        <div className="grid grid-cols-5">
+          {MOBILE_NAV_ITEMS.map(({ to, label, end, Icon }) => (
             <NavLink key={to} to={to} end={end} className="relative flex flex-col items-center gap-1 py-2.5">
               {({ isActive }) => (
                 <>

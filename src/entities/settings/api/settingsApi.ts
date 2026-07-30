@@ -21,6 +21,12 @@ async function getOrCreateSettings(): Promise<Settings> {
   return DEFAULT_SETTINGS;
 }
 
+// Non-hook accessor for modules that need a setting outside of a React
+// component (e.g. habit streak calculation reacting to a Dexie event).
+export async function getWeekStartsOn(): Promise<Settings['weekStartsOn']> {
+  return (await getOrCreateSettings()).weekStartsOn;
+}
+
 export function useSettings() {
   return useQuery({ queryKey: SETTINGS_QUERY_KEY, queryFn: getOrCreateSettings });
 }

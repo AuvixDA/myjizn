@@ -16,9 +16,15 @@ export type LifeOSEvent =
   // Dexie the way every other handler does, so the ids it needs travel
   // with the event instead.
   | { type: 'task.deleted'; payload: { id: EntityId; linkedGoalIds: EntityId[] } }
+  | { type: 'habit.created'; payload: { id: EntityId } }
+  | { type: 'habit.updated'; payload: { id: EntityId } }
   | { type: 'habit.checked'; payload: { id: EntityId; date: string } }
+  | { type: 'habit.deleted'; payload: { id: EntityId } }
   | { type: 'finance.created'; payload: { id: EntityId; amount: number } }
+  | { type: 'finance.updated'; payload: { id: EntityId } }
+  | { type: 'finance.deleted'; payload: { id: EntityId } }
   | { type: 'diary.saved'; payload: { id: EntityId } }
+  | { type: 'diary.deleted'; payload: { id: EntityId } }
   | { type: 'note.created'; payload: { id: EntityId } }
   | { type: 'note.updated'; payload: { id: EntityId } }
   | { type: 'note.deleted'; payload: { id: EntityId } }
