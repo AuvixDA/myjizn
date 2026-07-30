@@ -7,7 +7,7 @@ export function NotesPage() {
 
   return (
     <div className="flex flex-col gap-4 max-w-2xl">
-      <h1 className="text-2xl font-semibold">Notes</h1>
+      <h1 className="text-2xl font-semibold">Заметки</h1>
       <CreateNoteForm onCreated={() => refetch()} />
       <div className="grid gap-3 sm:grid-cols-2">
         {notes?.map((note) => (

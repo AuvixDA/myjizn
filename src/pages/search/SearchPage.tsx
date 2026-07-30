@@ -1,27 +1,28 @@
 import { useState, useEffect } from 'react';
 import { searchEntities } from '../../shared/lib/search/searchClient';
+import { resolveEntityTitle } from '../../shared/api/db/resolve';
 import type { SearchHit } from '../../shared/lib/search/types';
 import { GlassCard } from '../../shared/ui/GlassCard';
+import { ENTITY_KIND_LABEL } from '../../shared/config/labels';
 
-const KIND_LABEL: Record<SearchHit['kind'], string> = {
-  goal: 'Goal',
-  task: 'Task',
-  habit: 'Habit',
-  diary: 'Diary',
-  note: 'Note',
-  finance: 'Finance',
-  project: 'Project',
-};
+interface ResolvedHit extends SearchHit {
+  title: string;
+}
 
 export function SearchPage() {
   const [query, setQuery] = useState('');
-  const [hits, setHits] = useState<SearchHit[]>([]);
+  const [hits, setHits] = useState<ResolvedHit[]>([]);
 
   useEffect(() => {
     let cancelled = false;
-    searchEntities(query).then((result) => {
-      if (!cancelled) setHits(result);
+
+    searchEntities(query).then(async (result) => {
+      const resolved = await Promise.all(
+        result.map(async (hit) => ({ ...hit, title: (await resolveEntityTitle(hit.kind, hit.id)) ?? '' })),
+      );
+      if (!cancelled) setHits(resolved.filter((hit) => hit.title));
     });
+
     return () => {
       cancelled = true;
     };
@@ -29,7 +30,7 @@ export function SearchPage() {
 
   return (
     <div className="flex flex-col gap-4 max-w-2xl">
-      <h1 className="text-2xl font-semibold">Search</h1>
+      <h1 className="text-2xl font-semibold">Поиск</h1>
       <input
         autoFocus
         value={query}
@@ -39,9 +40,11 @@ export function SearchPage() {
       />
       <div className="flex flex-col gap-2">
         {hits.map((hit) => (
-          <GlassCard key={`${hit.kind}-${hit.id}`} className="flex items-center justify-between py-2">
-            <span className="text-xs uppercase tracking-wide text-white/40">{KIND_LABEL[hit.kind]}</span>
-            <span className="text-sm text-white/40">{hit.id}</span>
+          <GlassCard key={`${hit.kind}-${hit.id}`} className="flex items-center gap-3 py-2.5">
+            <span className="shrink-0 text-xs uppercase tracking-wide text-white/40">
+              {ENTITY_KIND_LABEL[hit.kind]}
+            </span>
+            <span className="truncate text-sm text-white/90">{hit.title}</span>
           </GlassCard>
         ))}
         {query && hits.length === 0 && <p className="text-white/40 text-sm">Ничего не найдено</p>}

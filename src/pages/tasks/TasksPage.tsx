@@ -9,7 +9,7 @@ export function TasksPage() {
 
   return (
     <div className="flex flex-col gap-4 max-w-2xl">
-      <h1 className="text-2xl font-semibold">Tasks</h1>
+      <h1 className="text-2xl font-semibold">Задачи</h1>
       <CreateTaskForm />
       <GlassCard>
         <ul className="space-y-3">

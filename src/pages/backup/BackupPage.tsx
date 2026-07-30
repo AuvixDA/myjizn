@@ -28,7 +28,7 @@ export function BackupPage() {
 
   return (
     <div className="flex flex-col gap-4 max-w-xl">
-      <h1 className="text-2xl font-semibold">Backup</h1>
+      <h1 className="text-2xl font-semibold">Резервное копирование</h1>
       <GlassCard className="flex flex-col gap-3">
         <p className="text-sm text-white/60">
           Все данные хранятся локально в браузере без шифрования. Экспорт создаёт один JSON-файл

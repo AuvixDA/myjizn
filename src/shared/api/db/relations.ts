@@ -1,15 +1,6 @@
 import type { EntityId, EntityKind, Relation, BaseEntity } from '../../types/entity';
 import { db } from './schema';
-
-const TABLES: Record<EntityKind, keyof typeof db> = {
-  goal: 'goals',
-  task: 'tasks',
-  habit: 'habits',
-  diary: 'diary',
-  note: 'notes',
-  finance: 'finance',
-  project: 'projects',
-};
+import { ENTITY_TABLE } from './tables';
 
 // In-memory reverse index: targetId -> incoming relations.
 // Rebuilt once at startup (buildReverseIndex), kept in sync via
@@ -18,7 +9,7 @@ const reverseIndex = new Map<EntityId, Array<{ sourceId: EntityId; sourceType: E
 
 export async function buildReverseIndex(): Promise<void> {
   reverseIndex.clear();
-  for (const [kind, table] of Object.entries(TABLES) as [EntityKind, keyof typeof db][]) {
+  for (const [kind, table] of Object.entries(ENTITY_TABLE) as [EntityKind, keyof typeof db][]) {
     const rows = (await (db[table] as unknown as { toArray: () => Promise<BaseEntity[]> }).toArray());
     for (const entity of rows) {
       indexRelations(kind, entity);

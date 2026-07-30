@@ -13,7 +13,8 @@ export default defineConfig({
       manifest: {
         name: 'LifeOS',
         short_name: 'LifeOS',
-        description: 'Everything Connected — offline personal life OS',
+        description: 'LifeOS — офлайн-приложение для управления жизнью. Everything Connected.',
+        lang: 'ru',
         theme_color: '#0a0a0f',
         background_color: '#0a0a0f',
         display: 'standalone',

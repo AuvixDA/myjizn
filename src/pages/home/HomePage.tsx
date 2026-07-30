@@ -9,7 +9,7 @@ export function HomePage() {
 
   return (
     <div className="flex flex-col gap-4 max-w-3xl">
-      <h1 className="text-2xl font-semibold">Home</h1>
+      <h1 className="text-2xl font-semibold">Главная</h1>
       <HomeSummary />
       <WeekProgress />
     </div>
