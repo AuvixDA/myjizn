@@ -1,6 +1,6 @@
 import { NavLink } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { HomeIcon, GoalIcon, TaskIcon, NoteIcon, SearchIcon, BackupIcon } from '../shared/ui/icons';
+import { HomeIcon, GoalIcon, TaskIcon, NoteIcon, SearchIcon, BackupIcon, SettingsIcon } from '../shared/ui/icons';
 import { AnimatedOutlet } from './AnimatedOutlet';
 
 const NAV_ITEMS = [
@@ -44,9 +44,37 @@ export function AppLayout() {
             )}
           </NavLink>
         ))}
+
+        <NavLink
+          to="/settings"
+          className="relative mt-auto rounded-lg px-3 py-2 text-sm transition-colors text-white/40 hover:text-white/90 [&.active]:text-white"
+        >
+          {({ isActive }) => (
+            <>
+              {isActive && (
+                <motion.span
+                  layoutId="sidebar-active-pill"
+                  transition={SPRING}
+                  className="absolute inset-0 rounded-lg bg-white/[0.08] border border-white/[0.06]"
+                />
+              )}
+              <span className="relative flex items-center gap-2.5">
+                <SettingsIcon className="size-4 shrink-0" />
+                Настройки
+              </span>
+            </>
+          )}
+        </NavLink>
       </nav>
 
-      <main className="flex-1 p-4 pb-24 md:p-8 md:pb-8 overflow-x-hidden">
+      <main className="relative flex-1 p-4 pb-24 md:p-8 md:pb-8 overflow-x-hidden">
+        <NavLink
+          to="/settings"
+          className="md:hidden absolute top-4 right-4 z-10 flex items-center justify-center size-9 rounded-full bg-white/[0.06] text-white/60 [&.active]:text-white [&.active]:bg-white/[0.12]"
+          aria-label="Настройки"
+        >
+          <SettingsIcon className="size-4" />
+        </NavLink>
         <AnimatedOutlet />
       </main>
 

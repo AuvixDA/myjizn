@@ -1,18 +1,25 @@
 import { motion } from 'framer-motion';
-import { useTasks, useTaskEventsSync } from '../../entities/task/api/taskApi';
+import { useTasks } from '../../entities/task/api/taskApi';
 import { CreateTaskForm } from '../../features/create-task/CreateTaskForm';
 import { TaskCheckbox } from '../../features/complete-task/TaskCheckbox';
 import { GlassCard } from '../../shared/ui/GlassCard';
+import { Skeleton } from '../../shared/ui/Skeleton';
 
 export function TasksPage() {
-  useTaskEventsSync();
-  const { data: tasks } = useTasks();
+  const { data: tasks, isPending } = useTasks();
 
   return (
     <div className="flex flex-col gap-4 max-w-2xl">
       <h1 className="text-2xl font-semibold tracking-tight">Задачи</h1>
       <CreateTaskForm />
       <GlassCard>
+        {isPending && (
+          <div className="space-y-3.5">
+            <Skeleton className="h-5 w-2/3" />
+            <Skeleton className="h-5 w-1/2" />
+            <Skeleton className="h-5 w-3/5" />
+          </div>
+        )}
         <ul className="space-y-3.5">
           {tasks?.map((task, i) => (
             <motion.li

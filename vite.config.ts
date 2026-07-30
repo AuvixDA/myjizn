@@ -15,10 +15,14 @@ export default defineConfig({
         short_name: 'LifeOS',
         description: 'LifeOS — офлайн-приложение для управления жизнью. Everything Connected.',
         lang: 'ru',
-        theme_color: '#0a0a0f',
-        background_color: '#0a0a0f',
+        theme_color: '#08080c',
+        background_color: '#08080c',
         display: 'standalone',
-        icons: [],
+        icons: [
+          { src: 'icons/icon-192.png', sizes: '192x192', type: 'image/png' },
+          { src: 'icons/icon-512.png', sizes: '512x512', type: 'image/png' },
+          { src: 'icons/icon-maskable-512.png', sizes: '512x512', type: 'image/png', purpose: 'maskable' },
+        ],
       },
       workbox: {
         globPatterns: ['**/*.{js,css,html,svg,png,ico}'],
@@ -28,5 +32,6 @@ export default defineConfig({
   test: {
     environment: 'jsdom',
     globals: true,
+    setupFiles: ['./src/shared/test/setup.ts'],
   },
 });

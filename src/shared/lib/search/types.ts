@@ -14,6 +14,7 @@ export interface SearchHit {
 export type SearchWorkerRequest =
   | { type: 'index'; records: SearchableRecord[] }
   | { type: 'upsert'; record: SearchableRecord }
+  | { type: 'remove'; id: EntityId }
   | { type: 'query'; queryId: number; text: string };
 
 export type SearchWorkerResponse = { type: 'result'; queryId: number; hits: SearchHit[] };

@@ -7,12 +7,21 @@ import type { EntityId } from '../types/entity';
 export type LifeOSEvent =
   | { type: 'goal.created'; payload: { id: EntityId } }
   | { type: 'goal.updated'; payload: { id: EntityId } }
+  | { type: 'goal.deleted'; payload: { id: EntityId } }
   | { type: 'task.created'; payload: { id: EntityId } }
+  | { type: 'task.updated'; payload: { id: EntityId } }
   | { type: 'task.completed'; payload: { id: EntityId; completedAt: number } }
+  // linkedGoalIds is included (not just the id) because by the time this
+  // fires the task row is already gone — consumers can't re-read it from
+  // Dexie the way every other handler does, so the ids it needs travel
+  // with the event instead.
+  | { type: 'task.deleted'; payload: { id: EntityId; linkedGoalIds: EntityId[] } }
   | { type: 'habit.checked'; payload: { id: EntityId; date: string } }
   | { type: 'finance.created'; payload: { id: EntityId; amount: number } }
   | { type: 'diary.saved'; payload: { id: EntityId } }
   | { type: 'note.created'; payload: { id: EntityId } }
+  | { type: 'note.updated'; payload: { id: EntityId } }
+  | { type: 'note.deleted'; payload: { id: EntityId } }
   | { type: 'project.created'; payload: { id: EntityId } };
 
 type EventType = LifeOSEvent['type'];

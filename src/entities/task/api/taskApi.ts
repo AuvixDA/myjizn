@@ -1,12 +1,13 @@
-import { useEffect } from 'react';
 import { v4 as uuid } from 'uuid';
-import { useQuery, useQueryClient } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 import { db } from '../../../shared/api/db/schema';
+import { queryClient } from '../../../shared/api/queryClient';
 import { reindexEntity } from '../../../shared/api/db/relations';
+import { deleteEntity } from '../../../shared/api/db/delete';
 import { indexRecord } from '../../../shared/lib/search/searchClient';
 import { eventBus } from '../../../shared/lib/event-bus';
 import type { Task } from '../model/types';
-import type { Relation } from '../../../shared/types/entity';
+import type { EntityId, Relation } from '../../../shared/types/entity';
 
 export const TASKS_QUERY_KEY = ['tasks'] as const;
 
@@ -42,6 +43,22 @@ export async function completeTask(id: string): Promise<void> {
   eventBus.emit({ type: 'task.completed', payload: { id, completedAt } });
 }
 
+export async function updateTaskTitle(id: EntityId, title: string): Promise<void> {
+  await db.tasks.update(id, { title, updatedAt: Date.now() });
+  indexRecord({ id, kind: 'task', title });
+  eventBus.emit({ type: 'task.updated', payload: { id } });
+}
+
+export async function deleteTask(id: EntityId): Promise<void> {
+  const task = await db.tasks.get(id);
+  const linkedGoalIds = (task?.relations ?? [])
+    .filter((r) => r.type === 'supports' && r.targetType === 'goal')
+    .map((r) => r.targetId);
+
+  await deleteEntity('task', id);
+  eventBus.emit({ type: 'task.deleted', payload: { id, linkedGoalIds } });
+}
+
 export function useTasks() {
   return useQuery({
     queryKey: TASKS_QUERY_KEY,
@@ -65,18 +82,14 @@ export function useTodayTasks() {
   });
 }
 
-// Subscribes the React Query cache to task events so widgets refresh on
-// task.created/task.completed instead of polling (per PRD Event Bus rules).
-// Mount once near the root (see AppLayout) rather than per-widget.
-export function useTaskEventsSync(): void {
-  const queryClient = useQueryClient();
-  useEffect(() => {
-    const invalidate = () => queryClient.invalidateQueries({ queryKey: TASKS_QUERY_KEY });
-    const unsubCreated = eventBus.on('task.created', invalidate);
-    const unsubCompleted = eventBus.on('task.completed', invalidate);
-    return () => {
-      unsubCreated();
-      unsubCompleted();
-    };
-  }, [queryClient]);
+// Global subscription, bootstrapped once in app/main.tsx — see PRD "Event
+// Bus" rules and the goal-progress staleness bug this pattern fixes
+// (component-mount-scoped invalidation misses events fired while the
+// consuming page isn't open).
+export function initTaskEventsSync(): void {
+  const invalidate = () => queryClient.invalidateQueries({ queryKey: TASKS_QUERY_KEY });
+  eventBus.on('task.created', invalidate);
+  eventBus.on('task.updated', invalidate);
+  eventBus.on('task.completed', invalidate);
+  eventBus.on('task.deleted', invalidate);
 }

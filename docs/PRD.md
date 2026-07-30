@@ -143,12 +143,20 @@ export interface Task extends BaseEntity {
 export type LifeOSEvent =
   | { type: 'goal.created'; payload: { id: EntityId } }
   | { type: 'goal.updated'; payload: { id: EntityId } }
+  | { type: 'goal.deleted'; payload: { id: EntityId } }
   | { type: 'task.created'; payload: { id: EntityId } }
+  | { type: 'task.updated'; payload: { id: EntityId } }
   | { type: 'task.completed'; payload: { id: EntityId; completedAt: number } }
+  // linkedGoalIds travels with the event because the task row is already
+  // gone by the time this fires — unlike every other handler, consumers
+  // can't re-read it from Dexie.
+  | { type: 'task.deleted'; payload: { id: EntityId; linkedGoalIds: EntityId[] } }
   | { type: 'habit.checked'; payload: { id: EntityId; date: string } }
   | { type: 'finance.created'; payload: { id: EntityId; amount: number } }
   | { type: 'diary.saved'; payload: { id: EntityId } }
   | { type: 'note.created'; payload: { id: EntityId } }
+  | { type: 'note.updated'; payload: { id: EntityId } }
+  | { type: 'note.deleted'; payload: { id: EntityId } }
   | { type: 'project.created'; payload: { id: EntityId } };
 
 type Handler<T extends LifeOSEvent['type']> =
@@ -165,6 +173,15 @@ export interface EventBus {
   повторном рендере React (StrictMode) без побочных эффектов.
 - События не переживают перезагрузку страницы — при старте состояние
   восстанавливается прямым чтением из Dexie, а не replay событий.
+- Подписки, инвалидирующие React Query кэш (`initGoalEventsSync` и т.п.),
+  регистрируются **один раз при старте приложения**, а не хуком внутри
+  компонента страницы. Ранняя версия вешала `eventBus.on` в `useEffect` при
+  монтировании страницы — если событие (например, пересчёт прогресса цели
+  после выполнения задачи) происходило, пока эта страница не была открыта,
+  инвалидация кэша просто не срабатывала, и при следующем визите
+  показывались устаревшие данные, хотя в Dexie уже было верное значение.
+
+
 
 ## USER SCENARIOS **[новый раздел, шаг 4 инструкции]**
 

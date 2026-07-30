@@ -29,6 +29,11 @@ self.onmessage = (event: MessageEvent<SearchWorkerRequest>) => {
     return;
   }
 
+  if (message.type === 'remove') {
+    index.remove(message.id);
+    return;
+  }
+
   if (message.type === 'query') {
     const results = index.search<true>(message.text, undefined, { enrich: true });
     const hits = results.flatMap((fieldResult) => fieldResult.result.map((r) => ({ id: r.doc.id, kind: r.doc.kind })));

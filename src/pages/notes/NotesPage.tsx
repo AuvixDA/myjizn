@@ -1,20 +1,24 @@
 import { useNotes } from '../../entities/note/api/noteApi';
 import { CreateNoteForm } from '../../features/create-note/CreateNoteForm';
-import { GlassCard } from '../../shared/ui/GlassCard';
+import { NoteCard } from '../../features/manage-note/NoteCard';
+import { Skeleton } from '../../shared/ui/Skeleton';
 
 export function NotesPage() {
-  const { data: notes, refetch } = useNotes();
+  const { data: notes, isPending } = useNotes();
 
   return (
     <div className="flex flex-col gap-4 max-w-2xl">
       <h1 className="text-2xl font-semibold tracking-tight">Заметки</h1>
-      <CreateNoteForm onCreated={() => refetch()} />
+      <CreateNoteForm />
       <div className="grid gap-3 sm:grid-cols-2">
+        {isPending && (
+          <>
+            <Skeleton className="h-24 w-full" />
+            <Skeleton className="h-24 w-full" />
+          </>
+        )}
         {notes?.map((note, i) => (
-          <GlassCard key={note.id} delay={i * 0.04} interactive>
-            <p className="font-medium">{note.title}</p>
-            <p className="text-sm text-white/50 mt-1 line-clamp-3">{note.content}</p>
-          </GlassCard>
+          <NoteCard key={note.id} note={note} delay={i * 0.04} />
         ))}
         {notes?.length === 0 && <p className="text-white/40 text-sm">Пока нет заметок</p>}
       </div>

@@ -1,7 +1,5 @@
 import { HomeSummary } from '../../widgets/home-summary/HomeSummary';
 import { WeekProgress } from '../../widgets/week-progress/WeekProgress';
-import { useTaskEventsSync } from '../../entities/task/api/taskApi';
-import { useGoalEventsSync } from '../../entities/goal/api/goalApi';
 
 function greeting(): string {
   const hour = new Date().getHours();
@@ -14,9 +12,6 @@ function greeting(): string {
 const DATE_FORMAT = new Intl.DateTimeFormat('ru-RU', { day: 'numeric', month: 'long', weekday: 'long' });
 
 export function HomePage() {
-  useTaskEventsSync();
-  useGoalEventsSync();
-
   return (
     <div className="flex flex-col gap-5 max-w-3xl">
       <div>

@@ -74,3 +74,48 @@ export function BackupIcon(props: IconProps) {
     </Icon>
   );
 }
+
+export function PencilIcon(props: IconProps) {
+  return (
+    <Icon {...props}>
+      <path d="M4 20h4l10.5-10.5a2.1 2.1 0 0 0-3-3L5 17v3Z" />
+      <path d="m13.5 7.5 3 3" />
+    </Icon>
+  );
+}
+
+export function TrashIcon(props: IconProps) {
+  return (
+    <Icon {...props}>
+      <path d="M5 7h14" />
+      <path d="M9 7V5a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2" />
+      <path d="M7 7v12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V7" />
+      <path d="M10 11v6M14 11v6" />
+    </Icon>
+  );
+}
+
+export function CheckIcon(props: IconProps) {
+  return (
+    <Icon {...props}>
+      <path d="m4.5 12.5 5 5 10-10" />
+    </Icon>
+  );
+}
+
+export function XIcon(props: IconProps) {
+  return (
+    <Icon {...props}>
+      <path d="m5 5 14 14M19 5 5 19" />
+    </Icon>
+  );
+}
+
+export function SettingsIcon(props: IconProps) {
+  return (
+    <Icon {...props}>
+      <circle cx="12" cy="12" r="3" />
+      <path d="M12 3v2.2M12 18.8V21M4.6 6.6l1.5 1.5M17.9 15.9l1.5 1.5M3 12h2.2M18.8 12H21M4.6 17.4l1.5-1.5M17.9 8.1l1.5-1.5" />
+    </Icon>
+  );
+}

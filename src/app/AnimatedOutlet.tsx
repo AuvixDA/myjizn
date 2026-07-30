@@ -1,5 +1,7 @@
+import { Suspense } from 'react';
 import { useLocation, useOutlet } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
+import { PageSkeleton } from '../shared/ui/Skeleton';
 
 // react-router replaces the outlet element on navigation before it can
 // exit-animate; useOutlet() captures the current element so AnimatePresence
@@ -20,7 +22,7 @@ export function AnimatedOutlet() {
         exit={{ opacity: 0, y: -4, filter: 'blur(3px)' }}
         transition={{ duration: 0.18, ease: [0.16, 1, 0.3, 1] }}
       >
-        {element}
+        <Suspense fallback={<PageSkeleton />}>{element}</Suspense>
       </motion.div>
     </AnimatePresence>
   );

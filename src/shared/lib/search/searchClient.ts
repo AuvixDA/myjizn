@@ -47,6 +47,10 @@ export function indexRecord(record: SearchableRecord): void {
   post({ type: 'upsert', record });
 }
 
+export function removeSearchRecord(id: SearchableRecord['id']): void {
+  post({ type: 'remove', id });
+}
+
 export function searchEntities(text: string): Promise<SearchHit[]> {
   if (!text.trim()) return Promise.resolve([]);
   const queryId = nextQueryId++;
