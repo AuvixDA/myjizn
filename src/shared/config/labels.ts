@@ -1,6 +1,7 @@
 import type { EntityKind } from '../types/entity';
 import type { Goal } from '../../entities/goal/model/types';
 import type { DiaryEntry } from '../../entities/diary/model/types';
+import type { Project } from '../../entities/project/model/types';
 
 export const ENTITY_KIND_LABEL: Record<EntityKind, string> = {
   goal: 'Цель',
@@ -16,6 +17,13 @@ export const GOAL_STATUS_LABEL: Record<Goal['status'], string> = {
   active: 'Активна',
   paused: 'На паузе',
   completed: 'Завершена',
+  archived: 'В архиве',
+};
+
+export const PROJECT_STATUS_LABEL: Record<Project['status'], string> = {
+  active: 'Активен',
+  'on-hold': 'На паузе',
+  completed: 'Завершён',
   archived: 'В архиве',
 };
 

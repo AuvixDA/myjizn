@@ -12,6 +12,8 @@ const HabitsPage = lazy(() => import('../pages/habits/HabitsPage').then((m) => (
 const NotesPage = lazy(() => import('../pages/notes/NotesPage').then((m) => ({ default: m.NotesPage })));
 const DiaryPage = lazy(() => import('../pages/diary/DiaryPage').then((m) => ({ default: m.DiaryPage })));
 const FinancePage = lazy(() => import('../pages/finance/FinancePage').then((m) => ({ default: m.FinancePage })));
+const ProjectsPage = lazy(() => import('../pages/projects/ProjectsPage').then((m) => ({ default: m.ProjectsPage })));
+const StatisticsPage = lazy(() => import('../pages/statistics/StatisticsPage').then((m) => ({ default: m.StatisticsPage })));
 const SearchPage = lazy(() => import('../pages/search/SearchPage').then((m) => ({ default: m.SearchPage })));
 const BackupPage = lazy(() => import('../pages/backup/BackupPage').then((m) => ({ default: m.BackupPage })));
 const SettingsPage = lazy(() => import('../pages/settings/SettingsPage').then((m) => ({ default: m.SettingsPage })));
@@ -31,6 +33,8 @@ export const router = createHashRouter([
       { path: 'notes', element: <NotesPage /> },
       { path: 'diary', element: <DiaryPage /> },
       { path: 'finance', element: <FinancePage /> },
+      { path: 'projects', element: <ProjectsPage /> },
+      { path: 'statistics', element: <StatisticsPage /> },
       { path: 'search', element: <SearchPage /> },
       { path: 'backup', element: <BackupPage /> },
       { path: 'settings', element: <SettingsPage /> },

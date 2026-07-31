@@ -2,6 +2,7 @@ import { HomeSummary } from '../../widgets/home-summary/HomeSummary';
 import { WeekProgress } from '../../widgets/week-progress/WeekProgress';
 import { HabitsToday } from '../../widgets/habits-today/HabitsToday';
 import { FinanceSummary } from '../../widgets/finance-summary/FinanceSummary';
+import { AiInsight } from '../../widgets/ai-insight/AiInsight';
 
 function greeting(): string {
   const hour = new Date().getHours();
@@ -21,6 +22,7 @@ export function HomePage() {
         <p className="text-sm text-white/40 mt-0.5 capitalize">{DATE_FORMAT.format(new Date())}</p>
       </div>
       <HomeSummary />
+      <AiInsight delay={0.06} />
       <div className="grid gap-4 md:grid-cols-2">
         <HabitsToday delay={0.08} />
         <FinanceSummary delay={0.12} />

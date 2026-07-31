@@ -1,11 +1,23 @@
 import { NavLink } from 'react-router-dom';
-import { GoalIcon, DiaryIcon, FinanceIcon, SearchIcon, BackupIcon, SettingsIcon, ChevronRightIcon } from '../../shared/ui/icons';
+import {
+  GoalIcon,
+  DiaryIcon,
+  FinanceIcon,
+  ProjectIcon,
+  StatisticsIcon,
+  SearchIcon,
+  BackupIcon,
+  SettingsIcon,
+  ChevronRightIcon,
+} from '../../shared/ui/icons';
 import { GlassCard } from '../../shared/ui/GlassCard';
 
 const ITEMS = [
   { to: '/goals', label: 'Цели', Icon: GoalIcon },
   { to: '/diary', label: 'Дневник', Icon: DiaryIcon },
   { to: '/finance', label: 'Финансы', Icon: FinanceIcon },
+  { to: '/projects', label: 'Проекты', Icon: ProjectIcon },
+  { to: '/statistics', label: 'Статистика', Icon: StatisticsIcon },
   { to: '/search', label: 'Поиск', Icon: SearchIcon },
   { to: '/backup', label: 'Бэкап', Icon: BackupIcon },
   { to: '/settings', label: 'Настройки', Icon: SettingsIcon },

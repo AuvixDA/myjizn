@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { useTasks } from '../../entities/task/api/taskApi';
 import { GlassCard } from '../../shared/ui/GlassCard';
+import { pluralizeRu } from '../../shared/lib/pluralize';
 
 const DAY_MS = 24 * 60 * 60 * 1000;
 const WEEKDAY_LABEL = ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'];
@@ -30,7 +31,7 @@ export function WeekProgress() {
           <p className="text-3xl font-semibold bg-gradient-to-br from-white to-white/60 bg-clip-text text-transparent">
             {total}
           </p>
-          <p className="text-xs text-white/40 mt-1">задач за 7 дней</p>
+          <p className="text-xs text-white/40 mt-1">{pluralizeRu(total, ['задача', 'задачи', 'задач'])} за 7 дней</p>
         </div>
         <div className="flex items-end gap-2">
           {bars.map(({ dayStart, count }, i) => (

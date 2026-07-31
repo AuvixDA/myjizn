@@ -164,3 +164,19 @@ export function ChevronRightIcon(props: IconProps) {
     </Icon>
   );
 }
+
+export function ProjectIcon(props: IconProps) {
+  return (
+    <Icon {...props}>
+      <path d="M4 6.5A1.5 1.5 0 0 1 5.5 5h4l1.5 2h7A1.5 1.5 0 0 1 19.5 8.5v9A1.5 1.5 0 0 1 18 19H5.5A1.5 1.5 0 0 1 4 17.5v-11Z" />
+    </Icon>
+  );
+}
+
+export function StatisticsIcon(props: IconProps) {
+  return (
+    <Icon {...props}>
+      <path d="M5 19V10M12 19V5M19 19v-6" />
+    </Icon>
+  );
+}

@@ -8,6 +8,8 @@ import {
   NoteIcon,
   DiaryIcon,
   FinanceIcon,
+  ProjectIcon,
+  StatisticsIcon,
   SearchIcon,
   BackupIcon,
   SettingsIcon,
@@ -24,6 +26,8 @@ const DESKTOP_NAV_ITEMS = [
   { to: '/notes', label: 'Заметки', end: false, Icon: NoteIcon },
   { to: '/diary', label: 'Дневник', end: false, Icon: DiaryIcon },
   { to: '/finance', label: 'Финансы', end: false, Icon: FinanceIcon },
+  { to: '/projects', label: 'Проекты', end: false, Icon: ProjectIcon },
+  { to: '/statistics', label: 'Статистика', end: false, Icon: StatisticsIcon },
   { to: '/search', label: 'Поиск', end: false, Icon: SearchIcon },
   { to: '/backup', label: 'Бэкап', end: false, Icon: BackupIcon },
 ] as const;

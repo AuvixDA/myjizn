@@ -11,6 +11,7 @@ import { initNoteEventsSync } from '../entities/note/api/noteApi';
 import { initHabitEventsSync } from '../entities/habit/api/habitApi';
 import { initDiaryEventsSync } from '../entities/diary/api/diaryApi';
 import { initFinanceEventsSync } from '../entities/finance/api/financeApi';
+import { initProjectEventsSync } from '../entities/project/api/projectApi';
 import '../shared/ui/tailwind.css';
 
 // Reverse relations index and search index must exist before any widget
@@ -26,6 +27,7 @@ Promise.all([buildReverseIndex(), initSearchIndex()]).then(() => {
   initHabitEventsSync();
   initDiaryEventsSync();
   initFinanceEventsSync();
+  initProjectEventsSync();
 
   createRoot(document.getElementById('root')!).render(
     <StrictMode>

@@ -163,7 +163,9 @@ export type LifeOSEvent =
   | { type: 'note.created'; payload: { id: EntityId } }
   | { type: 'note.updated'; payload: { id: EntityId } }
   | { type: 'note.deleted'; payload: { id: EntityId } }
-  | { type: 'project.created'; payload: { id: EntityId } };
+  | { type: 'project.created'; payload: { id: EntityId } }
+  | { type: 'project.updated'; payload: { id: EntityId } }
+  | { type: 'project.deleted'; payload: { id: EntityId } };
 
 type Handler<T extends LifeOSEvent['type']> =
   (event: Extract<LifeOSEvent, { type: T }>) => void;
@@ -273,7 +275,7 @@ SOLID. DRY. KISS. Строгий TypeScript. Функциональные ком
 ## ROADMAP
 MVP: Home, Goals, Tasks, Notes, Search, Backup. ✅ реализовано.
 После MVP: Habits, Diary, Finance. ✅ реализовано.
-Затем: Projects, AI Insights, Statistics.
+Затем: Projects, AI Insights, Statistics. ✅ реализовано.
 
 ## INSTRUCTION
 Перед написанием кода:

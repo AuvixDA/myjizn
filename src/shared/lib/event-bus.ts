@@ -28,7 +28,9 @@ export type LifeOSEvent =
   | { type: 'note.created'; payload: { id: EntityId } }
   | { type: 'note.updated'; payload: { id: EntityId } }
   | { type: 'note.deleted'; payload: { id: EntityId } }
-  | { type: 'project.created'; payload: { id: EntityId } };
+  | { type: 'project.created'; payload: { id: EntityId } }
+  | { type: 'project.updated'; payload: { id: EntityId } }
+  | { type: 'project.deleted'; payload: { id: EntityId } };
 
 type EventType = LifeOSEvent['type'];
 type Handler<T extends EventType> = (event: Extract<LifeOSEvent, { type: T }>) => void;
