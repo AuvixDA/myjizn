@@ -20,7 +20,7 @@ export function ExpenseByCategory() {
 
   return (
     <GlassCard>
-      <h2 className="text-xs text-white/45 mb-4">Расходы по категориям — 30 дней</h2>
+      <h2 className="text-xs text-white/60 mb-4">Расходы по категориям — 30 дней</h2>
       <div className="flex flex-col gap-3">
         {sorted.map(([category, amount]) => (
           <div key={category}>

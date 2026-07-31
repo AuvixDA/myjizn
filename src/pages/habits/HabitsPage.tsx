@@ -20,7 +20,7 @@ export function HabitsPage() {
         {habits?.map((habit, i) => (
           <HabitCard key={habit.id} habit={habit} delay={i * 0.04} />
         ))}
-        {habits?.length === 0 && <p className="text-white/40 text-sm">Пока нет привычек</p>}
+        {habits?.length === 0 && <p className="text-white/55 text-sm">Пока нет привычек</p>}
       </div>
     </div>
   );

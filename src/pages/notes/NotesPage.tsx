@@ -20,7 +20,7 @@ export function NotesPage() {
         {notes?.map((note, i) => (
           <NoteCard key={note.id} note={note} delay={i * 0.04} />
         ))}
-        {notes?.length === 0 && <p className="text-white/40 text-sm">Пока нет заметок</p>}
+        {notes?.length === 0 && <p className="text-white/55 text-sm">Пока нет заметок</p>}
       </div>
     </div>
   );

@@ -43,7 +43,13 @@ export function GoalCard({ goal, delay = 0 }: GoalCardProps) {
               void handleSave();
             }}
           >
-            <Input autoFocus value={title} onChange={(e) => setTitle(e.target.value)} className="flex-1 py-1.5" />
+            <Input
+              autoFocus
+              aria-label="Название цели"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              className="flex-1 py-1.5"
+            />
             <IconButton type="submit" label="Сохранить">
               <CheckIcon className="size-4" />
             </IconButton>
@@ -55,7 +61,7 @@ export function GoalCard({ goal, delay = 0 }: GoalCardProps) {
           <>
             <div className="min-w-0">
               <p className="font-medium truncate">{goal.title}</p>
-              <p className="text-xs text-white/40">{GOAL_STATUS_LABEL[goal.status]}</p>
+              <p className="text-xs text-white/55">{GOAL_STATUS_LABEL[goal.status]}</p>
             </div>
             <div className="flex items-center gap-1 shrink-0">
               <span className="text-sm text-white/60 tabular-nums mr-1">{goal.progress}%</span>

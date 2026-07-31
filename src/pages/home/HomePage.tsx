@@ -19,7 +19,7 @@ export function HomePage() {
     <div className="flex flex-col gap-5 max-w-3xl">
       <div>
         <h1 className="text-2xl font-semibold tracking-tight">{greeting()}</h1>
-        <p className="text-sm text-white/40 mt-0.5 capitalize">{DATE_FORMAT.format(new Date())}</p>
+        <p className="text-sm text-white/55 mt-0.5 capitalize">{DATE_FORMAT.format(new Date())}</p>
       </div>
       <HomeSummary />
       <AiInsight delay={0.06} />

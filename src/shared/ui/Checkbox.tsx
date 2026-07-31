@@ -4,9 +4,10 @@ interface CheckboxProps {
   checked: boolean;
   onChange: () => void;
   disabled?: boolean;
+  'aria-label'?: string;
 }
 
-export function Checkbox({ checked, onChange, disabled = false }: CheckboxProps) {
+export function Checkbox({ checked, onChange, disabled = false, ...rest }: CheckboxProps) {
   return (
     <motion.button
       type="button"
@@ -15,11 +16,12 @@ export function Checkbox({ checked, onChange, disabled = false }: CheckboxProps)
       disabled={disabled}
       onClick={onChange}
       whileTap={disabled ? undefined : { scale: 0.85 }}
-      className={`relative flex items-center justify-center size-5 shrink-0 rounded-[7px] border transition-colors ${
+      className={`relative flex items-center justify-center size-5 shrink-0 rounded-[7px] border transition-colors outline-none focus-visible:ring-2 focus-visible:ring-accent-soft focus-visible:ring-offset-2 focus-visible:ring-offset-surface ${
         checked
           ? 'bg-gradient-to-b from-accent-soft to-accent-dim border-transparent'
           : 'border-white/[0.18] bg-white/[0.03] hover:border-white/35'
       } ${disabled ? 'cursor-default' : 'cursor-pointer'}`}
+      {...rest}
     >
       <motion.svg viewBox="0 0 16 16" className="size-3 text-white" initial={false}>
         <motion.path

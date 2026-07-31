@@ -20,7 +20,7 @@ export function GoalsPage() {
         {goals?.map((goal, i) => (
           <GoalCard key={goal.id} goal={goal} delay={i * 0.04} />
         ))}
-        {goals?.length === 0 && <p className="text-white/40 text-sm">Пока нет целей</p>}
+        {goals?.length === 0 && <p className="text-white/55 text-sm">Пока нет целей</p>}
       </div>
     </div>
   );

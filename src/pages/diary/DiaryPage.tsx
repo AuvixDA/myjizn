@@ -19,7 +19,7 @@ export function DiaryPage() {
           <DiaryEntryCard key={entry.id} entry={entry} delay={i * 0.04} />
         ))}
         {!isPending && pastEntries?.length === 0 && (
-          <p className="text-white/40 text-sm">Пока нет записей за прошлые дни</p>
+          <p className="text-white/55 text-sm">Пока нет записей за прошлые дни</p>
         )}
       </div>
     </div>

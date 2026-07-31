@@ -21,7 +21,13 @@ export function CreateProjectForm() {
 
   return (
     <form onSubmit={handleSubmit} className="flex gap-2">
-      <Input value={title} onChange={(e) => setTitle(e.target.value)} placeholder="Новый проект…" className="flex-1" />
+      <Input
+        aria-label="Название проекта"
+        value={title}
+        onChange={(e) => setTitle(e.target.value)}
+        placeholder="Новый проект…"
+        className="flex-1"
+      />
       <Button type="submit" disabled={submitting || !title.trim()}>
         Создать
       </Button>

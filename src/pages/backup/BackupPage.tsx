@@ -41,7 +41,7 @@ export function BackupPage() {
           </Button>
           <input ref={fileInputRef} type="file" accept="application/json" hidden onChange={handleImport} />
         </div>
-        {status && <p className="text-xs text-white/40">{status}</p>}
+        {status && <p className="text-xs text-white/55">{status}</p>}
       </GlassCard>
     </div>
   );

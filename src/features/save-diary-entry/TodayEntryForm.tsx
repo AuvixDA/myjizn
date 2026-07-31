@@ -42,7 +42,7 @@ export function TodayEntryForm({ existing }: TodayEntryFormProps) {
   return (
     <GlassCard className="flex flex-col gap-3">
       <div className="flex items-center justify-between">
-        <h2 className="text-xs text-white/45">Сегодня</h2>
+        <h2 className="text-xs text-white/60">Сегодня</h2>
         <MoodPicker value={mood} onChange={setMood} />
       </div>
       <Textarea
@@ -55,7 +55,7 @@ export function TodayEntryForm({ existing }: TodayEntryFormProps) {
         <Button onClick={handleSave} disabled={saving || !content.trim()} className="self-start">
           Сохранить
         </Button>
-        {saved && <span className="text-xs text-white/40">Сохранено</span>}
+        {saved && <span className="text-xs text-white/55">Сохранено</span>}
       </div>
     </GlassCard>
   );

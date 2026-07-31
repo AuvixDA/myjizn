@@ -10,7 +10,7 @@ export function GoalsOverview() {
 
   return (
     <GlassCard>
-      <h2 className="text-xs text-white/45 mb-4">Прогресс активных целей</h2>
+      <h2 className="text-xs text-white/60 mb-4">Прогресс активных целей</h2>
       <div className="flex flex-col gap-3">
         {active.map((goal) => (
           <div key={goal.id}>

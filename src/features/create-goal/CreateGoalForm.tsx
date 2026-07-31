@@ -26,7 +26,13 @@ export function CreateGoalForm({ onCreated }: CreateGoalFormProps) {
 
   return (
     <form onSubmit={handleSubmit} className="flex gap-2">
-      <Input value={title} onChange={(e) => setTitle(e.target.value)} placeholder="Новая цель…" className="flex-1" />
+      <Input
+        aria-label="Название цели"
+        value={title}
+        onChange={(e) => setTitle(e.target.value)}
+        placeholder="Новая цель…"
+        className="flex-1"
+      />
       <Button type="submit" disabled={submitting || !title.trim()}>
         Создать
       </Button>

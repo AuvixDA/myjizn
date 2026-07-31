@@ -39,9 +39,15 @@ export function CreateTaskForm({ onCreated }: CreateTaskFormProps) {
 
   return (
     <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-2">
-      <Input value={title} onChange={(e) => setTitle(e.target.value)} placeholder="Новая задача…" className="flex-1" />
+      <Input
+        aria-label="Название задачи"
+        value={title}
+        onChange={(e) => setTitle(e.target.value)}
+        placeholder="Новая задача…"
+        className="flex-1"
+      />
       {goals && goals.length > 0 && (
-        <Select value={goalId} onChange={(e) => setGoalId(e.target.value)} className="sm:w-44">
+        <Select aria-label="Связать с целью" value={goalId} onChange={(e) => setGoalId(e.target.value)} className="sm:w-44">
           <option value="">Без цели</option>
           {goals.map((goal) => (
             <option key={goal.id} value={goal.id}>
@@ -51,7 +57,7 @@ export function CreateTaskForm({ onCreated }: CreateTaskFormProps) {
         </Select>
       )}
       {projects && projects.length > 0 && (
-        <Select value={projectId} onChange={(e) => setProjectId(e.target.value)} className="sm:w-44">
+        <Select aria-label="Связать с проектом" value={projectId} onChange={(e) => setProjectId(e.target.value)} className="sm:w-44">
           <option value="">Без проекта</option>
           {projects.map((project) => (
             <option key={project.id} value={project.id}>

@@ -19,7 +19,7 @@ export function HabitHeatmap() {
 
   return (
     <GlassCard>
-      <h2 className="text-xs text-white/45 mb-4">Привычки — последние 30 дней</h2>
+      <h2 className="text-xs text-white/60 mb-4">Привычки — последние 30 дней</h2>
       <div className="flex flex-col gap-3 overflow-x-auto">
         {habits.map((habit) => (
           <div key={habit.id} className="flex items-center gap-3 min-w-max">

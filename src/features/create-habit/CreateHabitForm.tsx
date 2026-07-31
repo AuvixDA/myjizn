@@ -24,8 +24,19 @@ export function CreateHabitForm() {
 
   return (
     <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-2">
-      <Input value={title} onChange={(e) => setTitle(e.target.value)} placeholder="Новая привычка…" className="flex-1" />
-      <Select value={frequency} onChange={(e) => setFrequency(e.target.value as Habit['frequency'])} className="sm:w-36">
+      <Input
+        aria-label="Название привычки"
+        value={title}
+        onChange={(e) => setTitle(e.target.value)}
+        placeholder="Новая привычка…"
+        className="flex-1"
+      />
+      <Select
+        aria-label="Периодичность"
+        value={frequency}
+        onChange={(e) => setFrequency(e.target.value as Habit['frequency'])}
+        className="sm:w-36"
+      >
         <option value="daily">Каждый день</option>
         <option value="weekly">Раз в неделю</option>
       </Select>

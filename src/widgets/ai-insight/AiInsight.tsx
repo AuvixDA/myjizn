@@ -24,7 +24,7 @@ export function AiInsight({ delay = 0 }: AiInsightProps) {
     <GlassCard delay={delay} className="flex items-start gap-3 bg-gradient-to-br from-accent/10 to-transparent">
       <span className="text-lg leading-none mt-0.5">✨</span>
       <div>
-        <h2 className="text-xs text-white/45 mb-1">Инсайт</h2>
+        <h2 className="text-xs text-white/60 mb-1">Инсайт</h2>
         <p className="text-sm text-white/85">{insight.text}</p>
       </div>
     </GlassCard>

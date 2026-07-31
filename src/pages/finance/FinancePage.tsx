@@ -15,7 +15,7 @@ export function FinancePage() {
       <h1 className="text-2xl font-semibold tracking-tight">Финансы</h1>
 
       <GlassCard>
-        <p className="text-xs text-white/45 mb-1">Баланс</p>
+        <p className="text-xs text-white/60 mb-1">Баланс</p>
         <p className={`text-3xl font-semibold tabular-nums ${balance < 0 ? 'text-rose-300' : ''}`}>
           {formatMoney(balance, currency)}
         </p>
@@ -36,7 +36,7 @@ export function FinancePage() {
               <FinanceRow entry={entry} />
             </li>
           ))}
-          {entries?.length === 0 && <p className="text-white/40 text-sm">Пока нет записей</p>}
+          {entries?.length === 0 && <p className="text-white/55 text-sm">Пока нет записей</p>}
         </ul>
       </GlassCard>
     </div>

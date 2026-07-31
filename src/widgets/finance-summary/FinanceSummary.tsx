@@ -23,13 +23,13 @@ export function FinanceSummary({ delay = 0 }: FinanceSummaryProps) {
   return (
     <GlassCard delay={delay} className="flex items-center justify-between">
       <div>
-        <h2 className="text-xs text-white/45 mb-1">Баланс</h2>
+        <h2 className="text-xs text-white/60 mb-1">Баланс</h2>
         <p className={`text-lg font-medium tabular-nums ${balance < 0 ? 'text-rose-300' : ''}`}>
           {formatMoney(balance, currency)}
         </p>
       </div>
       <div className="text-right">
-        <h2 className="text-xs text-white/45 mb-1">Расходы за 30 дней</h2>
+        <h2 className="text-xs text-white/60 mb-1">Расходы за 30 дней</h2>
         <p className="text-lg font-medium tabular-nums text-rose-300">{formatMoney(monthExpense, currency)}</p>
       </div>
     </GlassCard>

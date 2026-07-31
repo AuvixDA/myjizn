@@ -45,7 +45,13 @@ export function TaskCheckbox({ task }: TaskCheckboxProps) {
           void handleSave();
         }}
       >
-        <Input autoFocus value={title} onChange={(e) => setTitle(e.target.value)} className="flex-1 py-1.5" />
+        <Input
+          autoFocus
+          aria-label="Название задачи"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+          className="flex-1 py-1.5"
+        />
         <IconButton type="submit" label="Сохранить">
           <CheckIcon className="size-4" />
         </IconButton>
@@ -58,7 +64,7 @@ export function TaskCheckbox({ task }: TaskCheckboxProps) {
 
   return (
     <div className="flex items-center gap-3">
-      <Checkbox checked={done} disabled={done} onChange={() => completeTask(task.id)} />
+      <Checkbox checked={done} disabled={done} onChange={() => completeTask(task.id)} aria-label={`Задача: ${task.title}`} />
       <span className={`flex-1 truncate transition-colors ${done ? 'line-through text-white/35' : 'text-white/90'}`}>
         {task.title}
       </span>

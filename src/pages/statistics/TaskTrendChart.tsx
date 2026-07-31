@@ -25,7 +25,7 @@ export function TaskTrendChart() {
 
   return (
     <GlassCard>
-      <h2 className="text-xs text-white/45 mb-4">Выполненные задачи — 30 дней</h2>
+      <h2 className="text-xs text-white/60 mb-4">Выполненные задачи — 30 дней</h2>
       <div className="overflow-x-auto">
         <div className="flex items-end gap-1.5 h-24 min-w-max px-0.5">
           {bars.map(({ dayStart, count }, i) => {

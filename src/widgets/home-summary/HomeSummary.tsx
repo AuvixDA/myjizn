@@ -22,20 +22,20 @@ export function HomeSummary() {
           <>
             <CircularProgress value={mainGoal.progress} />
             <div className="min-w-0">
-              <h2 className="text-xs text-white/45 mb-1">Главная цель</h2>
+              <h2 className="text-xs text-white/60 mb-1">Главная цель</h2>
               <p className="text-lg font-medium truncate">{mainGoal.title}</p>
             </div>
           </>
         ) : (
           <div>
-            <h2 className="text-xs text-white/45 mb-1">Главная цель</h2>
-            <p className="text-white/40 text-sm">Пока нет целей</p>
+            <h2 className="text-xs text-white/60 mb-1">Главная цель</h2>
+            <p className="text-white/55 text-sm">Пока нет целей</p>
           </div>
         )}
       </GlassCard>
 
       <GlassCard delay={0.05}>
-        <h2 className="text-xs text-white/45 mb-3">Задачи на сегодня</h2>
+        <h2 className="text-xs text-white/60 mb-3">Задачи на сегодня</h2>
         {tasksPending ? (
           <Skeleton className="h-5 w-2/3" />
         ) : todayTasks && todayTasks.length > 0 ? (
@@ -47,7 +47,7 @@ export function HomeSummary() {
             ))}
           </ul>
         ) : (
-          <p className="text-white/40 text-sm">Нет задач на сегодня</p>
+          <p className="text-white/55 text-sm">Нет задач на сегодня</p>
         )}
       </GlassCard>
     </div>

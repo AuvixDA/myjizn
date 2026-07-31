@@ -48,7 +48,13 @@ export function ProjectCard({ project, delay = 0 }: ProjectCardProps) {
             void handleSave();
           }}
         >
-          <Input autoFocus value={title} onChange={(e) => setTitle(e.target.value)} className="flex-1 py-1.5" />
+          <Input
+            autoFocus
+            aria-label="Название проекта"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            className="flex-1 py-1.5"
+          />
           <IconButton type="submit" label="Сохранить">
             <CheckIcon className="size-4" />
           </IconButton>
@@ -60,7 +66,7 @@ export function ProjectCard({ project, delay = 0 }: ProjectCardProps) {
         <div className="flex items-center gap-3">
           <div className="min-w-0 flex-1">
             <p className="truncate font-medium">{project.title}</p>
-            <p className="text-xs text-white/40">
+            <p className="text-xs text-white/55">
               {linkedTaskCount > 0
                 ? `${linkedTaskCount} ${pluralizeRu(linkedTaskCount, ['задача', 'задачи', 'задач'])}`
                 : 'Нет связанных задач'}

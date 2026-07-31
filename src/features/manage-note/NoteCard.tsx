@@ -44,8 +44,8 @@ export function NoteCard({ note, delay = 0 }: NoteCardProps) {
             void handleSave();
           }}
         >
-          <Input autoFocus value={title} onChange={(e) => setTitle(e.target.value)} />
-          <Textarea value={content} onChange={(e) => setContent(e.target.value)} rows={3} />
+          <Input autoFocus aria-label="Заголовок заметки" value={title} onChange={(e) => setTitle(e.target.value)} />
+          <Textarea aria-label="Текст заметки" value={content} onChange={(e) => setContent(e.target.value)} rows={3} />
           <div className="flex gap-2">
             <Button type="submit" disabled={!title.trim()} className="text-xs px-3 py-1.5">
               Сохранить

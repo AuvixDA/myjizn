@@ -23,7 +23,7 @@ export function IconButton({ variant = 'default', label, className = '', ...rest
       aria-label={label}
       title={label}
       whileTap={{ scale: 0.9 }}
-      className={`flex items-center justify-center size-7 rounded-lg transition-colors ${VARIANT_CLASSES[variant]} ${className}`}
+      className={`flex items-center justify-center size-7 rounded-lg transition-colors outline-none focus-visible:ring-2 focus-visible:ring-accent-soft ${VARIANT_CLASSES[variant]} ${className}`}
       {...rest}
     />
   );

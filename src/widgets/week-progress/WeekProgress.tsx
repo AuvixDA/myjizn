@@ -25,13 +25,13 @@ export function WeekProgress() {
 
   return (
     <GlassCard delay={0.1}>
-      <h2 className="text-xs text-white/45 mb-3">Прогресс недели</h2>
+      <h2 className="text-xs text-white/60 mb-3">Прогресс недели</h2>
       <div className="flex items-end justify-between gap-4">
         <div>
           <p className="text-3xl font-semibold bg-gradient-to-br from-white to-white/60 bg-clip-text text-transparent">
             {total}
           </p>
-          <p className="text-xs text-white/40 mt-1">{pluralizeRu(total, ['задача', 'задачи', 'задач'])} за 7 дней</p>
+          <p className="text-xs text-white/55 mt-1">{pluralizeRu(total, ['задача', 'задачи', 'задач'])} за 7 дней</p>
         </div>
         <div className="flex items-end gap-2">
           {bars.map(({ dayStart, count }, i) => (

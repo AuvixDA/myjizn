@@ -20,7 +20,7 @@ export function ProjectsPage() {
         {projects?.map((project, i) => (
           <ProjectCard key={project.id} project={project} delay={i * 0.04} />
         ))}
-        {projects?.length === 0 && <p className="text-white/40 text-sm">Пока нет проектов</p>}
+        {projects?.length === 0 && <p className="text-white/55 text-sm">Пока нет проектов</p>}
       </div>
     </div>
   );

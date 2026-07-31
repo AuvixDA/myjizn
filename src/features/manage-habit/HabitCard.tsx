@@ -51,7 +51,13 @@ export function HabitCard({ habit, delay = 0 }: HabitCardProps) {
             void handleSave();
           }}
         >
-          <Input autoFocus value={title} onChange={(e) => setTitle(e.target.value)} className="flex-1 py-1.5" />
+          <Input
+            autoFocus
+            aria-label="Название привычки"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            className="flex-1 py-1.5"
+          />
           <IconButton type="submit" label="Сохранить">
             <CheckIcon className="size-4" />
           </IconButton>
@@ -61,10 +67,10 @@ export function HabitCard({ habit, delay = 0 }: HabitCardProps) {
         </form>
       ) : (
         <div className="flex items-center gap-3">
-          <Checkbox checked={doneToday} onChange={() => toggleHabitToday(habit.id)} />
+          <Checkbox checked={doneToday} onChange={() => toggleHabitToday(habit.id)} aria-label={`Отметить «${habit.title}» на сегодня`} />
           <div className="flex-1 min-w-0">
             <p className="truncate">{habit.title}</p>
-            <p className="text-xs text-white/40">{habit.frequency === 'daily' ? 'Каждый день' : 'Раз в неделю'}</p>
+            <p className="text-xs text-white/55">{habit.frequency === 'daily' ? 'Каждый день' : 'Раз в неделю'}</p>
           </div>
           {habit.streak > 0 && (
             <span className="flex items-center gap-1 text-xs text-orange-300 shrink-0">

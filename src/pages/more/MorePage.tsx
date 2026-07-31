@@ -32,7 +32,11 @@ export function MorePage() {
       <h1 className="text-2xl font-semibold tracking-tight">Ещё</h1>
       <GlassCard className="flex flex-col divide-y divide-white/[0.06] p-0">
         {ITEMS.map(({ to, label, Icon }) => (
-          <NavLink key={to} to={to} className="flex items-center gap-3 px-4 py-3.5 text-sm text-white/80 hover:text-white hover:bg-white/[0.03] transition-colors first:rounded-t-2xl last:rounded-b-2xl">
+          <NavLink
+            key={to}
+            to={to}
+            className="flex items-center gap-3 px-4 py-3.5 text-sm text-white/80 hover:text-white hover:bg-white/[0.03] transition-colors first:rounded-t-2xl last:rounded-b-2xl outline-none focus-visible:ring-2 focus-visible:ring-accent-soft focus-visible:ring-inset"
+          >
             <Icon className="size-4 text-white/50" />
             <span className="flex-1">{label}</span>
             <ChevronRightIcon className="size-4 text-white/30" />

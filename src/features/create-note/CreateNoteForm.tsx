@@ -28,8 +28,8 @@ export function CreateNoteForm({ onCreated }: CreateNoteFormProps) {
 
   return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-2">
-      <Input value={title} onChange={(e) => setTitle(e.target.value)} placeholder="Заголовок…" />
-      <Textarea value={content} onChange={(e) => setContent(e.target.value)} placeholder="Текст заметки…" rows={3} />
+      <Input aria-label="Заголовок заметки" value={title} onChange={(e) => setTitle(e.target.value)} placeholder="Заголовок…" />
+      <Textarea aria-label="Текст заметки" value={content} onChange={(e) => setContent(e.target.value)} placeholder="Текст заметки…" rows={3} />
       <Button type="submit" disabled={submitting || !title.trim()} className="self-start">
         Сохранить
       </Button>

@@ -40,6 +40,21 @@
     background-color: rgb(255 255 255 / 0.12);
     border-radius: 999px;
   }
+
+  /* Covers CSS transitions (hover/focus color changes, etc). Framer Motion
+     animations are JS-driven and don't respond to this — the highest-impact
+     ones (page transitions, nav active-pill) check useReducedMotion()
+     directly instead, see AnimatedOutlet and AppLayout. */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
 }
 
 @layer utilities {

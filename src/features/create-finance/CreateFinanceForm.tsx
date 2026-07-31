@@ -43,9 +43,10 @@ export function CreateFinanceForm() {
           <button
             key={d}
             type="button"
+            aria-pressed={direction === d}
             onClick={() => setDirection(d)}
-            className={`px-3 py-1.5 rounded-lg text-sm transition-colors ${
-              direction === d ? (d === 'expense' ? 'bg-rose-400/20 text-rose-300' : 'bg-emerald-400/20 text-emerald-300') : 'text-white/40'
+            className={`px-3 py-1.5 rounded-lg text-sm transition-colors outline-none focus-visible:ring-2 focus-visible:ring-accent-soft ${
+              direction === d ? (d === 'expense' ? 'bg-rose-400/20 text-rose-300' : 'bg-emerald-400/20 text-emerald-300') : 'text-white/55'
             }`}
           >
             {d === 'expense' ? 'Расход' : 'Доход'}
@@ -53,14 +54,15 @@ export function CreateFinanceForm() {
         ))}
       </div>
       <Input
+        aria-label="Сумма"
         value={amount}
         onChange={(e) => setAmount(e.target.value)}
         placeholder="Сумма"
         inputMode="decimal"
         className="sm:w-28"
       />
-      <Input value={category} onChange={(e) => setCategory(e.target.value)} placeholder="Категория" className="flex-1" />
-      <Input type="date" value={date} onChange={(e) => setDate(e.target.value)} className="sm:w-40" />
+      <Input aria-label="Категория" value={category} onChange={(e) => setCategory(e.target.value)} placeholder="Категория" className="flex-1" />
+      <Input aria-label="Дата" type="date" value={date} onChange={(e) => setDate(e.target.value)} className="sm:w-40" />
       <Button type="submit" disabled={submitting || !amount || !category.trim()}>
         Добавить
       </Button>

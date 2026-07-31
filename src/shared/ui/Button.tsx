@@ -27,7 +27,7 @@ export function Button({ variant = 'primary', className = '', disabled, ...rest 
       whileTap={disabled ? undefined : { scale: 0.97 }}
       transition={{ duration: 0.15, ease: 'easeOut' }}
       disabled={disabled}
-      className={`rounded-xl px-4 py-2 text-sm font-medium transition-opacity disabled:opacity-40 disabled:pointer-events-none ${VARIANT_CLASSES[variant]} ${className}`}
+      className={`rounded-xl px-4 py-2 text-sm font-medium transition-opacity disabled:opacity-40 disabled:pointer-events-none outline-none focus-visible:ring-2 focus-visible:ring-accent-soft focus-visible:ring-offset-2 focus-visible:ring-offset-surface ${VARIANT_CLASSES[variant]} ${className}`}
       {...rest}
     />
   );

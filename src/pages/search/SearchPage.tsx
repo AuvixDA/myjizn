@@ -34,6 +34,7 @@ export function SearchPage() {
       <h1 className="text-2xl font-semibold tracking-tight">Поиск</h1>
       <Input
         autoFocus
+        aria-label="Поиск"
         value={query}
         onChange={(e) => setQuery(e.target.value)}
         placeholder="Искать по всем сущностям…"
@@ -48,7 +49,7 @@ export function SearchPage() {
             <span className="truncate text-sm text-white/90">{hit.title}</span>
           </GlassCard>
         ))}
-        {query && hits.length === 0 && <p className="text-white/40 text-sm">Ничего не найдено</p>}
+        {query && hits.length === 0 && <p className="text-white/55 text-sm">Ничего не найдено</p>}
       </div>
     </div>
   );

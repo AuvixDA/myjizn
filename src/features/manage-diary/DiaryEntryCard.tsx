@@ -39,7 +39,7 @@ export function DiaryEntryCard({ entry, delay = 0 }: DiaryEntryCardProps) {
   return (
     <GlassCard delay={delay} className="flex flex-col gap-2">
       <div className="flex items-center justify-between">
-        <p className="text-xs text-white/45">{DATE_FORMAT.format(new Date(entry.date))}</p>
+        <p className="text-xs text-white/60">{DATE_FORMAT.format(new Date(entry.date))}</p>
         {editing ? (
           <MoodPicker value={mood} onChange={setMood} />
         ) : (
@@ -56,7 +56,7 @@ export function DiaryEntryCard({ entry, delay = 0 }: DiaryEntryCardProps) {
       </div>
       {editing ? (
         <>
-          <Textarea value={content} onChange={(e) => setContent(e.target.value)} rows={3} />
+          <Textarea aria-label="Текст записи" value={content} onChange={(e) => setContent(e.target.value)} rows={3} />
           <div className="flex gap-2">
             <Button onClick={handleSave} disabled={!content.trim()} className="text-xs px-3 py-1.5">
               Сохранить

@@ -45,8 +45,8 @@ export function FinanceRow({ entry }: FinanceRowProps) {
           void handleSave();
         }}
       >
-        <Input autoFocus value={category} onChange={(e) => setCategory(e.target.value)} className="flex-1 py-1.5" />
-        <Input value={amount} onChange={(e) => setAmount(e.target.value)} inputMode="decimal" className="w-20 py-1.5" />
+        <Input autoFocus aria-label="Категория" value={category} onChange={(e) => setCategory(e.target.value)} className="flex-1 py-1.5" />
+        <Input aria-label="Сумма" value={amount} onChange={(e) => setAmount(e.target.value)} inputMode="decimal" className="w-20 py-1.5" />
         <IconButton type="submit" label="Сохранить">
           <CheckIcon className="size-4" />
         </IconButton>
