@@ -8,6 +8,9 @@ set -euo pipefail
 cd "$(dirname "$0")"
 
 FPS="${FPS:-30}"
+# CRF 26 — зерно съедает битрейт, но на глаз 26 и 20 неотличимы даже на
+# мелком тексте, а файл получается в пять раз легче. CRF=20 — для архива.
+CRF="${CRF:-26}"
 SHARDS="${SHARDS:-4}"
 OUT="out/auvix-studio-${FPS}fps.mp4"
 
@@ -31,9 +34,9 @@ python3 audio.py
 echo "▸ сборка"
 ffmpeg -y -v error -framerate "$FPS" -pattern_type glob -i 'out/frames/*.png' \
   -i out/audio.wav \
-  -c:v libx264 -preset slow -crf 24 -pix_fmt yuv420p \
+  -c:v libx264 -preset slow -crf "$CRF" -pix_fmt yuv420p \
   -profile:v high -level 4.2 -movflags +faststart \
-  -c:a aac -b:a 192k -ar 44100 \
+  -c:a aac -b:a 160k -ar 44100 \
   -shortest "$OUT"
 
 ls -lh "$OUT"
