@@ -1,0 +1,250 @@
+@font-face{font-family:Mont;src:url(../assets/fonts/montserrat-cyrillic-500-normal.woff2)format('woff2');font-weight:500;unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}
+@font-face{font-family:Mont;src:url(../assets/fonts/montserrat-latin-500-normal.woff2)format('woff2');font-weight:500}
+@font-face{font-family:Mont;src:url(../assets/fonts/montserrat-cyrillic-600-normal.woff2)format('woff2');font-weight:600;unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}
+@font-face{font-family:Mont;src:url(../assets/fonts/montserrat-latin-600-normal.woff2)format('woff2');font-weight:600}
+@font-face{font-family:Mont;src:url(../assets/fonts/montserrat-cyrillic-700-normal.woff2)format('woff2');font-weight:700;unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}
+@font-face{font-family:Mont;src:url(../assets/fonts/montserrat-latin-700-normal.woff2)format('woff2');font-weight:700}
+@font-face{font-family:Mont;src:url(../assets/fonts/montserrat-cyrillic-800-normal.woff2)format('woff2');font-weight:800;unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}
+@font-face{font-family:Mont;src:url(../assets/fonts/montserrat-latin-800-normal.woff2)format('woff2');font-weight:800}
+@font-face{font-family:Mont;src:url(../assets/fonts/montserrat-cyrillic-900-normal.woff2)format('woff2');font-weight:900;unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}
+@font-face{font-family:Mont;src:url(../assets/fonts/montserrat-latin-900-normal.woff2)format('woff2');font-weight:900}
+
+:root{
+  --bg:#05070A;
+  --glow1:#4A7A0B;
+  --glow2:#16210A;
+  --lime:#C6F132;
+  --flash:#E4FF57;
+  --ink:#F4F7EE;
+  --mute:#8A9480;
+  --card:#0B0E08;
+  --line:rgba(198,241,50,.16);
+}
+
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:1080px;height:1920px;overflow:hidden;background:var(--bg)}
+body{font-family:Mont,sans-serif;color:var(--ink);-webkit-font-smoothing:antialiased}
+
+#stage{position:relative;width:1080px;height:1920px;overflow:hidden;isolation:isolate}
+
+/* ---------- фон ---------- */
+#bg{position:absolute;inset:-14%;z-index:0}
+#bg .glow{position:absolute;inset:0;
+  background:radial-gradient(78% 54% at 50% 62%,
+    rgba(150,232,28,.46) 0%,rgba(96,158,15,.28) 26%,
+    rgba(40,64,11,.14) 48%,rgba(5,7,10,0) 76%)}
+#bg .glow2{position:absolute;inset:0;
+  background:radial-gradient(42% 26% at 22% 22%,
+    rgba(178,240,60,.20) 0%,rgba(5,7,10,0) 62%)}
+#bg .scan{position:absolute;inset:0;opacity:.028;
+  background:repeating-linear-gradient(0deg,#fff 0 1px,transparent 1px 4px)}
+
+/* сетка-блюпринт (проявляется в блоке связки) */
+#grid{position:absolute;inset:0;z-index:1;opacity:0;
+  background:
+    linear-gradient(rgba(198,241,50,.10) 1px,transparent 1px) 0 0/90px 90px,
+    linear-gradient(90deg,rgba(198,241,50,.10) 1px,transparent 1px) 0 0/90px 90px;
+  mask-image:radial-gradient(60% 42% at 50% 50%,#000 0%,transparent 78%)}
+
+/* ---------- финишный слой ---------- */
+#vign{position:absolute;inset:0;z-index:80;pointer-events:none;
+  background:radial-gradient(78% 56% at 50% 50%,transparent 42%,rgba(0,0,0,.62) 100%)}
+/* Зерно: тайл 400×400 в размер кадра. Контраст «запечён» в пиксели канваса —
+   CSS-фильтр здесь заставлял Chromium растрировать слой 2160×3840 каждый кадр. */
+#grain{position:absolute;inset:0;z-index:81;pointer-events:none;opacity:.055;
+  background-repeat:repeat}
+#flash{position:absolute;inset:0;z-index:85;pointer-events:none;
+  background:var(--flash);opacity:0;mix-blend-mode:screen}
+
+#layers{position:absolute;inset:0;z-index:10}
+.block{position:absolute;inset:0;display:none;will-change:transform,opacity}
+.block.on{display:block}
+
+/* ---------- типографика ---------- */
+.center{position:absolute;inset:0;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;text-align:center;padding:0 96px}
+
+.kinetic{font-weight:800;font-size:84px;line-height:1.14;letter-spacing:-.03em}
+.kinetic .w{display:inline-block;margin-right:.28em}
+.kinetic .line{display:inline}
+.kinetic .w:last-child{margin-right:0}
+
+.eyebrow{font-weight:700;font-size:26px;letter-spacing:.34em;color:var(--lime);
+  text-transform:uppercase}
+
+.sect-title{font-weight:800;font-size:64px;line-height:1.08;letter-spacing:-.02em}
+
+/* ---------- хром-объекты ---------- */
+.art{position:relative;width:216px;height:216px;flex:none;
+  filter:url(#warp) drop-shadow(0 0 30px rgba(198,241,50,.35))}
+.art-core{position:absolute;inset:0;color:#F2FFD6;
+  filter:contrast(1.45) brightness(1.28) saturate(1.15)}
+.art-core svg{width:100%;height:100%;display:block;
+  filter:drop-shadow(0 0 14px rgba(198,241,50,.85)) drop-shadow(0 0 4px rgba(255,255,255,.6))}
+
+/* кольцо */
+.art-ring .art-core{border-radius:50%;
+  background:conic-gradient(from 210deg,#2A3A12,#F2FFD0,#6FA615,#FFFFFF,#374A18,#CDF56A,#2A3A12);
+  mask:radial-gradient(circle at 50% 50%,transparent 39%,#000 42%,#000 71%,transparent 74%)}
+/* каплевидная форма */
+.art-blob .art-core{border-radius:58% 42% 39% 61%/47% 56% 44% 53%;
+  background:conic-gradient(from 40deg,#2E3D15,#E8FFB8,#5C8E12,#FFFFFF,#263310,#B9EE5C,#2E3D15)}
+/* сфера */
+.art-orb .art-core{border-radius:50%;
+  background:radial-gradient(38% 34% at 34% 28%,#FFFFFF 0%,#DCFF7A 16%,#8FCB1E 42%,#3E6509 74%,#101A06 100%)}
+/* волна / сетка / узел рисуются svg-путём */
+.art-wave .art-core,.art-grid .art-core,.art-knot .art-core{color:#EAF7C8}
+
+.art-shine{position:absolute;inset:0;pointer-events:none;mix-blend-mode:screen;opacity:.55;
+  background:linear-gradient(128deg,transparent 30%,rgba(255,255,255,.85) 47%,transparent 58%)}
+.art-rim{position:absolute;inset:-6%;pointer-events:none;border-radius:50%;
+  background:radial-gradient(circle,transparent 58%,rgba(198,241,50,.30) 76%,transparent 82%)}
+
+/* ---------- карточки услуг ---------- */
+#svc-rail{position:absolute;left:0;right:0;top:0;
+  transform-style:preserve-3d;will-change:transform}
+.svc{position:absolute;left:90px;width:900px;height:300px;
+  background:linear-gradient(160deg,rgba(16,21,12,.96),rgba(7,9,6,.96));
+  border:1px solid var(--line);border-radius:44px;
+  box-shadow:0 30px 90px rgba(0,0,0,.6),inset 0 1px 0 rgba(255,255,255,.06);
+  display:flex;align-items:center;padding:0 46px;gap:34px;
+  will-change:transform,opacity}
+.svc .txt{flex:1;min-width:0}
+.svc .n{font-weight:900;font-size:40px;color:var(--lime);letter-spacing:.06em;
+  display:block;margin-bottom:10px}
+.svc .t{font-weight:800;font-size:52px;line-height:1.02;letter-spacing:-.02em;
+  white-space:pre-line}
+.svc .note{font-weight:500;font-size:25px;color:var(--mute);margin-top:14px}
+
+/* ---------- мокап телефона ---------- */
+.phone{position:absolute;left:50%;top:50%;width:660px;height:1240px;
+  margin:-620px 0 0 -330px;border-radius:66px;
+  background:#070A05;border:2px solid rgba(198,241,50,.20);
+  box-shadow:0 50px 140px rgba(0,0,0,.72),0 0 90px rgba(198,241,50,.10),
+             inset 0 1px 0 rgba(255,255,255,.07);
+  overflow:hidden;will-change:transform,opacity}
+.phone .notch{position:absolute;left:50%;top:20px;width:150px;height:30px;
+  margin-left:-75px;background:#000;border-radius:16px;z-index:5}
+
+/* браузер внутри телефона */
+.urlbar{position:absolute;left:22px;right:22px;top:72px;height:64px;border-radius:22px;
+  background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.09);
+  display:flex;align-items:center;padding:0 24px;gap:12px;
+  font-weight:600;font-size:25px;color:#D6E4BC}
+.urlbar .lock{width:16px;height:16px;border-radius:4px;background:var(--lime);flex:none}
+.urlbar .caret{width:2px;height:28px;background:var(--lime)}
+
+.site-body{position:absolute;left:22px;right:22px;top:158px;bottom:22px;
+  border-radius:32px;overflow:hidden;background:#080B06}
+.sb{position:absolute;left:0;right:0;border-radius:22px;
+  background:rgba(255,255,255,.045);border:1px solid rgba(255,255,255,.06);
+  will-change:transform,opacity}
+.sb.hero{background:linear-gradient(150deg,rgba(198,241,50,.18),rgba(74,122,11,.06));
+  border-color:rgba(198,241,50,.26);display:flex;flex-direction:column;
+  justify-content:center;padding:0 34px}
+.sb.hero .h{font-weight:800;font-size:44px;line-height:1.08;letter-spacing:-.02em;
+  white-space:pre-line}
+.sb.hero .btn{margin-top:26px;align-self:flex-start;background:var(--lime);color:#0A0F04;
+  font-weight:800;font-size:24px;padding:16px 30px;border-radius:16px}
+.sb .ph{position:absolute;left:26px;right:26px;height:14px;border-radius:8px;
+  background:rgba(255,255,255,.14)}
+
+.badge{position:absolute;border-radius:28px;padding:22px 30px;min-width:200px;
+  background:rgba(11,14,8,.94);border:1px solid var(--line);
+  box-shadow:0 22px 60px rgba(0,0,0,.55);text-align:center;will-change:transform,opacity}
+.badge .v{font-weight:900;font-size:62px;color:var(--lime);letter-spacing:-.02em}
+.badge .l{font-weight:600;font-size:22px;color:var(--mute);margin-top:4px;white-space:nowrap}
+
+/* ---------- чат ---------- */
+.chat-head{position:absolute;left:0;right:0;top:62px;height:104px;
+  border-bottom:1px solid rgba(255,255,255,.07);display:flex;align-items:center;
+  padding:0 28px;gap:18px}
+.chat-head .av{width:60px;height:60px;border-radius:50%;flex:none;
+  background:radial-gradient(38% 34% at 34% 28%,#FBFFF2,#C6F132 26%,#3E6509 70%)}
+.chat-head .nm{font-weight:700;font-size:29px}
+.chat-head .st{font-weight:500;font-size:21px;color:var(--lime)}
+.msgs{position:absolute;left:24px;right:24px;top:190px;bottom:120px}
+.msg{position:absolute;max-width:74%;padding:22px 26px;border-radius:28px;
+  font-weight:500;font-size:27px;line-height:1.34;white-space:pre-line;
+  will-change:transform,opacity}
+.msg.in{left:0;background:rgba(255,255,255,.075);border-bottom-left-radius:10px}
+.msg.out{right:0;background:linear-gradient(140deg,#C6F132,#8FC81E);color:#0A0F04;
+  border-bottom-right-radius:10px;font-weight:600}
+.typing{position:absolute;left:0;padding:26px 30px;border-radius:28px;
+  border-bottom-left-radius:10px;background:rgba(255,255,255,.075);display:flex;gap:10px}
+.typing i{width:12px;height:12px;border-radius:50%;background:var(--mute);display:block}
+
+/* ---------- связка ---------- */
+#wires{position:absolute;inset:0;z-index:2}
+#wires path{fill:none;stroke:var(--lime);stroke-width:3;
+  filter:drop-shadow(0 0 8px rgba(198,241,50,.6))}
+.node{position:absolute;width:290px;padding:26px 24px;border-radius:32px;
+  background:rgba(11,14,8,.96);border:1px solid var(--line);text-align:center;
+  box-shadow:0 24px 70px rgba(0,0,0,.6);will-change:transform,opacity}
+.node .ic{width:64px;height:64px;margin:0 auto 16px;border-radius:20px;
+  background:rgba(198,241,50,.12);border:1px solid var(--line);
+  display:grid;place-items:center}
+.node .ic svg{width:34px;height:34px;stroke:var(--lime);fill:none;stroke-width:2}
+.node .lb{font-weight:800;font-size:25px;letter-spacing:.1em}
+.node .nt{font-weight:500;font-size:20px;color:var(--mute);margin-top:8px;line-height:1.3}
+
+/* ---------- кейсы ---------- */
+#case-grid{position:absolute;left:80px;top:600px;width:920px;
+  display:grid;grid-template-columns:repeat(2,1fr);gap:28px}
+.case{height:250px;border-radius:36px;padding:30px;
+  background:linear-gradient(160deg,rgba(16,21,12,.96),rgba(7,9,6,.96));
+  border:1px solid var(--line);display:flex;flex-direction:column;
+  justify-content:flex-end;position:relative;overflow:hidden;
+  box-shadow:0 18px 50px rgba(0,0,0,.5);will-change:transform,opacity}
+.case .thumb{position:absolute;left:0;right:0;top:0;height:150px;
+  background:linear-gradient(140deg,rgba(198,241,50,.20),rgba(74,122,11,.04));
+  border-bottom:1px solid rgba(198,241,50,.12)}
+.case .t{font-weight:800;font-size:32px;letter-spacing:-.01em}
+.case .k{font-weight:500;font-size:22px;color:var(--mute);margin-top:6px}
+
+#case-detail{position:absolute;left:80px;width:920px;border-radius:44px;
+  background:linear-gradient(160deg,rgba(18,24,12,.98),rgba(7,9,6,.98));
+  border:1px solid rgba(198,241,50,.30);padding:44px;
+  box-shadow:0 40px 120px rgba(0,0,0,.7),0 0 80px rgba(198,241,50,.10);
+  opacity:0;will-change:transform,opacity}
+#case-detail .t{font-weight:800;font-size:52px;letter-spacing:-.02em}
+#case-detail .k{font-weight:500;font-size:26px;color:var(--mute);margin-top:10px}
+#case-detail .row{display:flex;gap:20px;margin-top:36px}
+#case-detail .st{flex:1;border-radius:26px;padding:26px 18px;text-align:center;
+  background:rgba(198,241,50,.07);border:1px solid var(--line)}
+#case-detail .st .v{font-weight:900;font-size:54px;color:var(--lime);letter-spacing:-.03em}
+#case-detail .st .l{font-weight:600;font-size:21px;color:var(--mute);margin-top:6px}
+
+/* ---------- процесс ---------- */
+#proc-rail{position:absolute;left:0;top:50%;margin-top:-150px;display:flex;gap:36px;
+  will-change:transform}
+.step{width:420px;height:300px;flex:none;border-radius:40px;padding:38px;
+  background:linear-gradient(160deg,rgba(16,21,12,.96),rgba(7,9,6,.96));
+  border:1px solid var(--line);display:flex;flex-direction:column;
+  justify-content:space-between;box-shadow:0 24px 70px rgba(0,0,0,.55)}
+.step .n{font-weight:900;font-size:74px;color:var(--lime);letter-spacing:-.03em;line-height:1}
+.step .t{font-weight:800;font-size:40px;letter-spacing:.02em}
+
+/* ---------- финал ---------- */
+#logo-wrap{position:absolute;inset:0;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;gap:34px}
+#mark{width:280px;height:280px}
+#mark path{fill:none;stroke:var(--lime);stroke-width:22;stroke-linecap:round;
+  stroke-linejoin:round;filter:drop-shadow(0 0 22px rgba(198,241,50,.75))}
+#mark path.fillm{fill:var(--lime);stroke:none}
+.wordmark{text-align:center}
+.wordmark .a{font-weight:900;font-size:112px;letter-spacing:.02em;line-height:1}
+.wordmark .b{font-weight:600;font-size:44px;letter-spacing:.52em;color:var(--lime);
+  margin-top:12px;margin-right:-.52em}
+.endline{font-weight:600;font-size:34px;color:var(--mute);letter-spacing:.06em}
+
+#parts{position:absolute;inset:0;pointer-events:none}
+#parts i{position:absolute;width:7px;height:7px;border-radius:50%;
+  background:var(--lime);box-shadow:0 0 12px rgba(198,241,50,.9)}
+
+/* ---------- курсор ---------- */
+.cursor{position:absolute;left:0;top:0;width:44px;height:44px;z-index:40;
+  filter:drop-shadow(0 6px 14px rgba(0,0,0,.6));will-change:transform}
+.cursor svg{width:100%;height:100%;display:block}
+.ripple{position:absolute;left:6px;top:6px;width:70px;height:70px;border-radius:50%;
+  border:2px solid var(--lime);opacity:0;transform:translate(-50%,-50%) scale(.2)}
